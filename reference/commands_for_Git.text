@@ -1,0 +1,83 @@
+git --version какая установлена версия git на компьютере (если нет, то установить)
+
+git config --global user.name <..> установка имени пользователя (имя и фамилия чрез пробел в кавычках)
+git config --global  user.email <..> установка почты пользователя (без кавычек)
+git config --list проверки настройки системы git
+
+q выход из терминала
+cls + Enter (clear + Enter) очистка терминала
+
+Команды командной строки:
+1. cd (change directory — изменить каталог)
+2. pwd выводит абсолютный путь файла
+   Path
+   ----
+   C:\Users\lahtglavinj\OneDrive\Рабочий стол\Python\pythonProject_Git
+
+3. mkdir my-project создание новой папки my-project
+4. cd my-project переход в папку my-project
+5. echo "Some text" > fail.txt создание файла с текстом (создание только с текстом)
+6. ls список файлов в папке
+7. cat file.txt чтение файла
+8. rm file.txt удаление файла
+9. git checkout e238073(7 цифр первых коммита) переместить указатель HEAD на определенный коммит ( 'detached HEAD' )
+
+git init инициализация репозитория в текущей папке (может быть много репозиториев)
+    ls -Force показать все (в том числе и скрытые папки) PowerShell
+    ls -la Git Bash
+
+git status посмотреть состояние папки "индекс" ('staging area'), где содержаться файлы подготовленные для коммита
+
+Working directory (Рабочая директория)
+Staging area (Индекс)
+Repository (Репозиторий) папка .git папка object
+
+git branch -m newname переименование ветки
+git add подготовить
+git rm --cached <полный путь к файлу> удалить файл из индекса
+git commit -m "First commit" сохранить (сделать коммит)
+git commit -m "Some text" создание коммита
+git log проверка истории коммитов
+
+git push добавить изменения в связанные ветки
+git pull скачать обновления из связанных веток
+
+git checkout перейти к определенной версии
+git cat-file -t  e23807  посмотреть файл коммита
+git cat-file -p e23807 прочесть файл коммита
+git remote -v(vv) проверка настроек удаленного репозитория
+
+Посмотреть к какому удаленному репозиторию подключен git можно с помощью
+git remote -v или git config --get remote.origin.url
+git remote -v
+
+# origin    git@gitlab.com:путь/до/репозитория.git (fetch)
+# origin    git@gitlab.com:путь/до/репозитория.git (push)
+
+git config --get remote.origin.url
+# git@gitlab.com:путь/до/репозитория.git
+
+
+
+git branch посмотреть список всех ветвей в локальном репозитории
+git branch <branch name> создание новой ветки
+git branch -d <branch name> удаление ветки (текущую ветку удалить нельзя)
+git checkout -b <branch name> создание и переход в созданную ветку
+git checkout <branch name> переход в ветку
+
+git remote add origin <URL> добавить удаленный репозиторий
+git push -u origin <branch> связать каждую локальную ветку с удаленной
+
+
+
+
+Статусы:
+1. --> Untracked --> не отслеживаемый (git add <название файла> переносить его в индекс)
+2. --> Staged --> подготовленный (добавленный в индекс, подготовленный для сохранения)
+3. --> Unmodified --> не модифицированный (после сохранения в репозитории, в рабочей директории
+                      и репозитории содержится одна и та же версия файла)
+4. --> Modified --> модифицированный (если внести изменения в файл, который находится в
+                    рабочей директории и репозитории)
+
+
+
