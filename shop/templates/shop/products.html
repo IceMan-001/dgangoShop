@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
 <title>Список товаров</title>
@@ -8,6 +9,10 @@
 
 {% for product in products %}
 <p>Название: {{product.name}}</p>
+{% if product.image %}
+<p>{{product.image}}</p>
+ <img src="{{product.image.url}}" width="200px" height="150px" alt="Картинка">
+{% endif%}
 <p>Цена: {{product.price}}</p>
 <p>Описание: {{product.description}}</p>
 <p>Категория: {{product.category}}</p>
