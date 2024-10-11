@@ -1,0 +1,16 @@
+{% extends 'base_admin.html' %}
+{% load static %}
+
+{% block title %}
+<title>Список категорий</title>
+{% endblock title %}
+
+{% block content %}
+<ul>
+{% for category in categories %}
+
+    <li><a href="{{category.get_absolute_url }}">{{category.name}}</a></li>
+
+{% endfor %}
+</ul>
+{% endblock content %}

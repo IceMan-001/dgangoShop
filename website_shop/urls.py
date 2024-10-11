@@ -18,8 +18,10 @@ from django.contrib import admin
 from django.urls import path, include
 from website_shop import settings
 from django.conf.urls.static import static
+from shop.views import AdminTemplateView
 
 urlpatterns = [
+    path('staff/', AdminTemplateView.as_view(), name='admin-page'),
     path('admin/', admin.site.urls),
     path('product/', include('shop.urls'))
 ]

@@ -1,4 +1,7 @@
 from django.db import models
+from django.template.base import kwarg_re
+from django.urls import reverse
+from slugify import slugify
 
 
 class Category(models.Model):
@@ -15,6 +18,13 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('category_detail', kwargs={'slug': self.slug})
 
 
 class Product(models.Model):
@@ -43,3 +53,10 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+    def get_absolut_url(self):
+        return reverse('product_detail', kwargs={'slug': self.slug})

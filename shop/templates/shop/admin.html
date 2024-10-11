@@ -1,0 +1,28 @@
+{% extends 'base_admin.html' %}
+
+{% block title %}
+<title>Панель администратора</title>
+{% endblock title %}
+
+{% block content %}
+{{total}}
+<div class="action-categories">
+<div class="actions">
+    <div class="actions">
+        <a href="{% url 'category_add' %}">Добавить категорию</a>
+    </div>
+    <div class="actions">
+        <a href="{% url 'categories' %}">Посмотреть категорию</a>
+    </div>
+    </div>
+    <div class="action-product">
+    <div class="actions">
+        <a href="{% url 'products_add' %}">Добавить товар</a>
+    </div>
+    <div class="actions">
+        <a href="{% url 'products' %}">Посмотреть товар</a>
+    </div>
+    </div>
+</div>
+
+{% endblock content %}
