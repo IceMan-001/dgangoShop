@@ -18,8 +18,7 @@ class ProductCreateForm(forms.ModelForm):
             'image': 'Изображение',
             'price': 'Цена',
             'category': 'Категория',
-
-
+            'available': 'Доступность товара',
         }
 
 

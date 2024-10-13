@@ -1,26 +1,57 @@
-{% extends 'base.html' %}
+{% extends 'base_admin.html' %}
 {% load static %}
 
 {% block title %}
-<title>Список товаров</title>
+    <title>Список товаров</title>
+    <link rel="stylesheet" href="{% static 'css/styles_card_prodycts.css' %}">
 {% endblock title %}
 
 {% block content %}
 
-{% for product in products %}
-<p>Название: {{product.name}}</p>
-{% if product.image %}
-<p>{{product.image.url}}</p>
-<img src="{{product.image.url}}" width="200px" height="150px" alt="Картинка">
+
+    {#    {% for product in products %}#}
+    {#    <p>Название: {{product.name}}</p>#}
+    {#    {% if product.image %}#}
+    {#    <p>{{product.image.url}}</p>#}
+    {#    <img src="{{product.image.url}}" width="200px" height="150px" alt="Картинка">#}
+    {#    {% endif%}#}
+    {#    <p>Цена: {{product.price}}</p>#}
+    {#    <p>Описание: {{product.description}}</p>#}
+    {#    <p>Категория: {{product.category}}</p>#}
+    {#    <p>Дата публикации: {{product.created}}</p>#}
+    {#    <hr>#}
+    {#    {% endfor %}#}
 
 
-{% endif%}
-<p>Цена: {{product.price}}</p>
-<p>Описание: {{product.description}}</p>
-<p>Категория: {{product.category}}</p>
-<p>Дата публикации: {{product.created}}</p>
-<hr>
 
-{% endfor %}
+    <div class="cards">
+        {% for product in products %}
+            <!-- Карточка товара -->
+            <div class="card">
+                <!-- Верхняя часть -->
+                <h4>Название товара: <a href="#" class="card__title">
+                    {{ product.name }}
+                </a></h4>
+                <div class="card__top">
+                    <!-- Изображение-ссылка товара -->
+                    {% if product.image %}
+                        <a href="#" class="card__image">
+                            <img
+                                    src="{{ product.image.url }}"
+                                    alt="Картинка"
+                            />
+                        </a>
+                    {% endif %}
+                </div>
+                <div>Описание: {{ product.description }}</div>
+                <div>Категория: {{ product.category }}</div>
+                <div>Дата публикации: {{ product.created }}</div>
+                <div class="card__price card__price--discount">Цена: {{ product.price }}</div>
+                <div class="card__bottom">
+                    <button type="submit" class="card__add">В корзину</button>
+                </div>
+            </div>
+         {% endfor %}
+    </div>
 
 {% endblock content %}

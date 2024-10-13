@@ -1,14 +1,19 @@
-from lib2to3.fixes.fix_input import context
-from sqlite3 import connect
-
 from django.shortcuts import render
 from django.views.generic import (ListView, CreateView,
                                   UpdateView, DetailView,
                                   DeleteView, TemplateView)
 from django.urls import reverse_lazy
-from .models import Product
-from .models import Category
+from .models import Product, Category
 from .forms import CategoryCreateForm, ProductCreateForm
+
+
+class AdminTemplateView(TemplateView):  # Админская страница
+    template_name = 'shop/admin.html'
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['total'] = 5
+    #     return context
 
 
 class ProductCreateView(CreateView):
@@ -16,14 +21,6 @@ class ProductCreateView(CreateView):
     form_class = ProductCreateForm
     template_name = 'shop/products_add.html'
     success_url = reverse_lazy('products')
-
-class AdminTemplateView(TemplateView):
-    template_name = 'shop/admin.html'
-
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['total'] = 5
-    #     return context
 
 
 class ProductListView(ListView):
