@@ -17,10 +17,11 @@ class AdminTemplateView(TemplateView):  # Админская страница
 
 
 class ProductCreateView(CreateView):
-    model = Product
-    form_class = ProductCreateForm
-    template_name = 'shop/products_add.html'
-    success_url = reverse_lazy('products')
+    model = Product  # model = Product выберет все записи из таблицы shop_product и попытается отобразить их в виде списка, используя шаблон с именем:
+                     # <имя приложения>/<имя модели>_list.html
+    form_class = ProductCreateForm  # form_class должен ссылаться на класс формы
+    template_name = 'shop/products_add.html' # template_name – на маршрут к шаблону для отображения формы
+    success_url = reverse_lazy('products')  # success_url определяет маршрут перенаправления при успешной отправке после валидации формы
 
 
 class ProductListView(ListView):
