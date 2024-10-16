@@ -29,7 +29,7 @@
             <!-- Карточка товара -->
             <div class="card">
                 <!-- Верхняя часть -->
-                <h4>Название товара: <a href="#" class="card__title">
+                <h4>Название товара: <a href="{% url 'edit_product' product.id %}" class="card__title">
                     {{ product.name }}
                 </a></h4>
                 <div class="card__top">

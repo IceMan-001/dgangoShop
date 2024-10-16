@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import (ListView, CreateView,
                                   UpdateView, DetailView,
                                   DeleteView, TemplateView)
@@ -31,6 +31,26 @@ class ProductListView(ListView):
     context_object_name = 'products'
 
 
+class ProductUpdateView(UpdateView):
+    model = Product
+    form_class = ProductCreateForm
+    # fields = ['category', 'name', 'description', 'image', 'price']
+    template_name = 'shop/edit_product.html'
+    success_url = reverse_lazy('products')
+    extra_context = {
+        'title': 'Добавление товара',
+    }
+
+
+class ProductDeleteView(DeleteView):
+    model = Product
+    template_name = 'shop/delete_product.html'
+    success_url = reverse_lazy('products')
+    extra_context = {
+        'title': 'Удаление товара',
+    }
+
+
 class CategoryCreateView(CreateView):
     model = Category
     fields = ['name']
@@ -50,3 +70,22 @@ class CategoryDetailView(DetailView):
     template_name = 'shop/category_detail.html'
     context_object_name = 'category'
     slug_url_kwarg = 'slug'
+
+
+class CategoryUpdateView(UpdateView):
+    model = Category
+    fields = ['name']
+    template_name = 'shop/edit_category.html'
+    success_url = reverse_lazy('categories')
+    extra_context = {
+        'title': 'Редактирование категории товара',
+    }
+
+
+class CategoryDeleteView(DeleteView):
+    model = Category
+    template_name = 'shop/delete_category.html'
+    success_url = reverse_lazy('categories')
+    extra_context = {
+        'title': 'Удаление категории товара',
+    }
