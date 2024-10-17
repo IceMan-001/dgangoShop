@@ -34,7 +34,8 @@
         <a href="{% url 'products' %}" target="_self">Products</a>
         <a href="{% url 'admin-page' %}" target="_self">Selection menu</a>
         <a href="#" target="_self">Регистрация</a>
-        <a href="#" target="_self">Войти</a>
+        <a href="{% url 'users:login' %}" target="_self">Войти</a>
+        <a href="{% url 'users:logout' %}" target="_self">Выйти</a>
     </div>
 </div>
 {% endblock header %}

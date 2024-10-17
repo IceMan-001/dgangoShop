@@ -24,9 +24,13 @@ urlpatterns = [
     path('', ProductListView.as_view()),
     path('staff/', AdminTemplateView.as_view(), name='admin-page'),
     path('admin/', admin.site.urls),
-    path('product/', include('shop.urls'))
+    path('product/', include('shop.urls')),
+
+    path('users/', include('users.urls', namespace="users")),
 ]
 
 # включаем возможность обработки картинок
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+

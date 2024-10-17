@@ -17,6 +17,7 @@
                 />
             </a>
         {% endif %}
+        <a href="{% url 'delete_product' product.id %}" class="btn btn-secondary">Удалить</a>
         <button type="submit">Редактировать</button>
     </form>
 {% endblock content %}
