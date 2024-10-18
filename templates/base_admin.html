@@ -31,11 +31,13 @@
     </div>
 
     <div class="nav-links">
-        <a href="{% url 'products' %}" target="_self">Products</a>
-        <a href="{% url 'admin-page' %}" target="_self">Selection menu</a>
-        <a href="#" target="_self">Регистрация</a>
+        <a href="{% url 'products' %}" target="_self">Products |</a>
+        <a href="{% url 'admin-page' %}" target="_self">Selection menu |</a>
+        <a href="{% url 'users:register' %}" target="_self">Регистрация |</a>
+        <a href="{% url 'users:profile' %}">{{user.username}} | </a><a href="{% url 'users:logout' %}">Выйти |</a>
+<!--        <a href="{% url 'users:profile' %}" target="_self">Редактировать профиль</a>-->
         <a href="{% url 'users:login' %}" target="_self">Войти</a>
-        <a href="{% url 'users:logout' %}" target="_self">Выйти</a>
+<!--        <a href="{% url 'users:logout' %}" target="_self">Выйти</a>-->
     </div>
 </div>
 {% endblock header %}
