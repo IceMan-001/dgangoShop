@@ -12,7 +12,7 @@
     <link rel='stylesheet'
           href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
 
-   </head>
+</head>
 <body>
 {% block header %}
 <div class="nav">
@@ -35,15 +35,18 @@
         <a href="{% url 'admin-page' %}" target="_self">Selection menu |</a>
         <a href="{% url 'users:register' %}" target="_self">Регистрация |</a>
         <a href="{% url 'users:profile' %}">{{user.username}} | </a><a href="{% url 'users:logout' %}">Выйти |</a>
-<!--        <a href="{% url 'users:profile' %}" target="_self">Редактировать профиль</a>-->
         <a href="{% url 'users:login' %}" target="_self">Войти</a>
-<!--        <a href="{% url 'users:logout' %}" target="_self">Выйти</a>-->
     </div>
 </div>
 {% endblock header %}
 <main>
-{% block content %}
-{% endblock content %}
+    <p></p>
+    <form action="" method="get">
+            <input name="s" placeholder="Искать здесь..." type="search">
+            <button type="submit">Поиск</button>
+    </form>
+    {% block content %}
+    {% endblock content %}
 </main>
 {% block footer %}
 <footer class="page-footer">

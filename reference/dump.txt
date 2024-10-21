@@ -1,0 +1,8 @@
+- Создать dump данных из базы:
+    python manage.py dumpdata > data.json
+
+- Создать dump данных из базы удобный для чтения:
+    python manage.py dumpdata --indent 2 > data.json
+
+- Восстановить данные из dump в базе:
+    python manage.py loaddata data.json
