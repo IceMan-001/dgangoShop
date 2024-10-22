@@ -1,6 +1,4 @@
-* styles.css */
-
-
+/* styles.css */
 
 body {
     margin: 0;
@@ -227,7 +225,11 @@ footer {
 
 footer p {
     margin: 0;
-    font-size: 0.9em;
+    font-size: 1rem;
+    font-family: "WindSong", cursive;
+    font-weight: 400;
+    font-style: normal;
+
 }
 
 @media screen and (max-width: 768px) {
@@ -243,5 +245,12 @@ footer p {
     flex-wrap: wrap;
     justify-content: space-between;
   }
+
+.sidebar a {
+    text-decoration: none;
+    color: #00a6ff;
+    font-weight: normal;
+    font-size: 0.9rem;
+}
 
 

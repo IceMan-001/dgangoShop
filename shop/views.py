@@ -125,8 +125,8 @@ class CategoryDeleteView(DeleteView):
 
 
 def product_search(request):
-    query = request.GET.get('query')
-    query_text = Q(name__contains=query) & Q(price__lt=200000)
+    query = request.GET.get('query')  # получаем запрос из url
+    query_text = Q(name__startswith=query) & Q(price__lt=200000) & Q(name__icontains=query)
 
     results = Product.objects.filter(query_text)
     categories = Category.objects.all()
