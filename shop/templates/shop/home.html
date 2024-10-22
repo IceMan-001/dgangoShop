@@ -1,0 +1,59 @@
+{% extends 'base_admin_main.html' %}
+{% load static %}
+
+{% block title %}
+<title>Список товаров</title>
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="small-container">
+        <div class="row row-2">
+            <aside class="sidebar">
+                <h2>Категории товаров</h2>
+                <ul>
+                    {% for category in categories %}
+                    <li><a href="{% url 'products_by_category' category.slug %}">{{ category.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </aside>
+        </div>
+    </div>
+    <section>
+        <h2 id="fruits">Все товары</h2>
+        <div class="category">
+            {% for product in products %}
+            <div class="product">
+                <div class="image-placeholder image-placeholder5">
+                    {% if product.image %}
+                    <a href="{% url 'edit_product' product.id %}" class="card__image">
+                        <img
+                                src="{{ product.image.url }}"
+                                alt="Картинка"/>
+                    </a>
+                    {% endif %}
+                </div>
+                <h4>Название товара: {{product.name}}</h4>
+                <p>Описание: {{ product.description }}</p>
+                <p class="price">Цена: {{product.price}}</p>
+                <p>Дата публикации: {{product.created}}</p>
+                <div class="qyt">
+                    <label for="quantity_fruit1">
+                        Количество:
+                    </label>
+                    <input type="number"
+                           id="quantity_fruit1"
+                           value="1">
+                </div>
+                <div class="productbtns">
+                    <button type="submit">Подробнее</button>
+                    <button type="submit">В корзину</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+
+{% endblock content %}
+

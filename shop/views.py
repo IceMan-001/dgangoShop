@@ -6,6 +6,8 @@ from django.urls import reverse_lazy
 from .models import Product, Category
 from .forms import CategoryCreateForm, ProductCreateForm
 
+from django.db.models import Q
+
 
 class AdminTemplateView(TemplateView):  # Админская страница
     template_name = 'shop/admin.html'
@@ -25,10 +27,41 @@ class ProductCreateView(CreateView):
         'products')  # success_url определяет маршрут перенаправления при успешной отправке после валидации формы
 
 
-class ProductListView(ListView):
+# class ProductListView(ListView):
+#     model = Product
+#     template_name = 'shop/home.html'
+#     context_object_name = 'products'
+
+
+class ProductListView(TemplateView):
+    template_name = 'shop/home.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        categories = Category.objects.all()
+        products = Product.objects.all()
+        context['categories'] = categories
+        context['products'] = products
+
+        return context
+
+class ProductListByCategory(ListView):
     model = Product
-    template_name = 'shop/products.html'
+    template_name = 'shop/products_by_category.html'
     context_object_name = 'products'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        categories = Category.objects.all()
+        context['categories'] = categories
+
+        return context
+
+    def get_queryset(self):
+        # Получаем категорию по slug из URL
+        category = get_object_or_404(Category, slug=self.kwargs['slug'])
+        return Product.objects.filter(category=category)
+
 
 
 class ProductUpdateView(UpdateView):
@@ -89,3 +122,15 @@ class CategoryDeleteView(DeleteView):
     extra_context = {
         'title': 'Удаление категории товара',
     }
+
+
+def product_search(request):
+    query = request.GET.get('query')
+    query_text = Q(name__contains=query) & Q(price__lt=200000)
+
+    results = Product.objects.filter(query_text)
+    categories = Category.objects.all()
+
+    context = {'categories': categories, 'products': results}
+
+    return render(request, template_name="shop/home.html", context=context)

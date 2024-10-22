@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     {% block title %}
+    <title>Title</title>
+    {% endblock title %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=WindSong:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+{% block header %}
+ <header>
+        <div class="navbar">
+            <div class="logo">
+                <span class="windsong-medium">
+                    <p >Andrey_Bobrov</p>
+                </span>
+            </div>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="{% url 'products' %}" target="_self">  Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'users:register' %}" target="_self">Регистрация </a>
+                    </li>
+                    <li>
+                       <a href="{% url 'users:login' %}" target="_self">Войти </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'users:profile' %}">{{user.username}} </a>
+                        <a href="{% url 'users:logout' %}">Выйти </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="search">
+                <form action="{% url 'product_search' %}" method="get" style="margin-top:10px; margin-left:20px">
+        <input type="search" name="query" placeholder="Search products...">
+        <button type="submit">Поиск</button>
+    </form>
+            </div>
+        </div>
+    </header>
+{% endblock header %}
+
+{% block main %}
+{% endblock main %}
+
+{% block content %}
+{% endblock content %}
+
+{% block footer %}
+<footer>
+        <p>&copy; 2023 Andrey Bobrov.
+            All rights reserved.
+        </p>
+    </footer>
+{% endblock footer %}
+
+</body>
+</html>
