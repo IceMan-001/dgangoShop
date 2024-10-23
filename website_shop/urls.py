@@ -27,6 +27,9 @@ urlpatterns = [
     path('product/', include('shop.urls')),
 
     path('users/', include('users.urls', namespace="users")),
+    path('cart/', include('cart.urls', namespace="cart")),
+
+
 ]
 
 # включаем возможность обработки картинок
