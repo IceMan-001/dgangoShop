@@ -6,7 +6,7 @@ from .views import (ProductListView, CategoryCreateView,
                     CategoryListView, ProductCreateView,
                     CategoryDetailView, ProductUpdateView,
                     CategoryUpdateView, CategoryDeleteView,
-                    ProductDeleteView, ProductListByCategory)
+                    ProductDeleteView, ProductListByCategory, ProductDetailView)
 from .views import product_search
 
 urlpatterns = [
@@ -15,6 +15,7 @@ urlpatterns = [
     path('products/add/', ProductCreateView.as_view(), name='products_add'),
     path('edit_product/<int:pk>/', ProductUpdateView.as_view(), name='edit_product'),
     path('delete_product/<int:pk>/', ProductDeleteView.as_view(), name='delete_product'),
+path('<slug:slug>/', ProductDetailView.as_view(), name='product_detail'),
 
 
     path('categories/', CategoryListView.as_view(), name='categories'),

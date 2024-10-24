@@ -1,5 +1,4 @@
 from django.db import models
-from django.template.base import kwarg_re
 from django.urls import reverse
 from slugify import slugify
 

@@ -25,11 +25,9 @@ urlpatterns = [
     path('staff/', AdminTemplateView.as_view(), name='admin-page'),
     path('admin/', admin.site.urls),
     path('product/', include('shop.urls')),
+    path('cart/', include('cart.urls')),
 
     path('users/', include('users.urls', namespace="users")),
-    path('cart/', include('cart.urls', namespace="cart")),
-
-
 ]
 
 # включаем возможность обработки картинок

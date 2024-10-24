@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>{{product.name}}</title>
+{% endblock title %}
+
+{% block content %}
+
+<div><h2>Краткая информация о товаре</h2></div>
+<div><h3>Наименование - {{product.name}}</h3></div>
+<div><h3>Описание - {{product.description}}</h3></div>
+<div><h3>Стоимость - {{product.price}}</h3></div>
+<div>
+    {% if product.image %}
+    <a href="{% url 'edit_product' product.id %}" class="card__image">
+        <img
+                src="{{ product.image.url }}" style="width: 100px; height: 100px;"
+                alt="Картинка"/>
+    </a>
+    {% endif %}
+</div>
+<p></p>
+<form class="form_style" action="{% url 'products' %}" method="get" target="_self">
+    <button type="submit">На главную</button>
+</form>
+{% endblock content %}

@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'shop.apps.ShopConfig',
     'users.apps.UsersConfig',
-    'card.apps.CardConfig',
+    'cart.apps.CardConfig',
 ]
 
 MIDDLEWARE = [
@@ -132,4 +132,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # LOGOUT_REDIRECT_URL = '/logout/'
 
-CART_SESSION_ID = 'card'
+CART_SESSION_ID = 'cart'

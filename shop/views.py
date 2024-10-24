@@ -9,6 +9,8 @@ from .forms import CategoryCreateForm, ProductCreateForm
 from django.db.models import Q
 
 
+
+
 class AdminTemplateView(TemplateView):  # Админская страница
     template_name = 'shop/admin.html'
 
@@ -36,6 +38,7 @@ class ProductCreateView(CreateView):
 class ProductListView(TemplateView):
     template_name = 'shop/home.html'
 
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         categories = Category.objects.all()
@@ -44,6 +47,14 @@ class ProductListView(TemplateView):
         context['products'] = products
 
         return context
+
+
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'shop/product_detail.html'
+    context_object_name = 'product'
+    slug_url_kwarg = 'slug'
+
 
 class ProductListByCategory(ListView):
     model = Product
@@ -61,7 +72,6 @@ class ProductListByCategory(ListView):
         # Получаем категорию по slug из URL
         category = get_object_or_404(Category, slug=self.kwargs['slug'])
         return Product.objects.filter(category=category)
-
 
 
 class ProductUpdateView(UpdateView):

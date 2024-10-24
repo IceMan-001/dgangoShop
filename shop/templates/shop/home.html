@@ -34,7 +34,7 @@
                     {% endif %}
                 </div>
                 <h4>Название товара: {{product.name}}</h4>
-                <p>Описание: {{ product.description }}</p>
+                <p>Описание: {{product.description}}</p>
                 <p class="price">Цена: {{product.price}}</p>
                 <p>Дата публикации: {{product.created}}</p>
                 <div class="qyt">
@@ -46,10 +46,12 @@
                            value="1">
                 </div>
                 <div class="productbtns">
-                     <a href="#" class="btn">Подробнее</a>
-                     <a href="#" class="btn">Корзина</a>
-<!--                    <button type="submit">Подробнее</button>-->
-<!--                    <button type="submit">В корзину</button>-->
+                    <form class="form_style" action="{% url 'product_detail' product.slug %}" method="get" target="_self">
+                        <button type="submit">Подробнее</button>
+                    </form>
+                    <form class="form_style" action="#" method="get" target="_self">
+                        <button type="submit">В корзину</button>
+                    </form>
                 </div>
             </div>
             {% endfor %}
