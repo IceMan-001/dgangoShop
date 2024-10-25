@@ -16,7 +16,7 @@ class Cart:
         cart = self.session.get(CART_SESSION_ID)  # получаем корзину из сессии или создаем новую
         if not cart:  # создаем новую корзину
             cart = self.session[CART_SESSION_ID] = {}
-            self.cart = cart
+        self.cart = cart
 
     def save(self):
         self.session.modified = True  # метод сохранения сессии
@@ -68,14 +68,14 @@ class Cart:
             yield item
 
 
-def cart_add(request, product_id):
+def cart_add(request, slug):
     # создаем корзину (получаем из сессии)
     cart = Cart(request)
 
-    product = get_object_or_404(Product, id=product_id)
+    product = get_object_or_404(Product, slug=slug)
     cart.add(product=product)
 
-    return redirect('home')
+    return redirect('products')
 
 def cart_detail(request):
     cart = Cart(request)

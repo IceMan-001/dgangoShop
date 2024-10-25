@@ -1,5 +1,6 @@
 {% extends 'base_admin_main.html' %}
 {% load static %}
+{% load custom_tags %}
 
 {% block title %}
 <title>Список товаров</title>
@@ -7,20 +8,20 @@
 
 {% block content %}
 <div class="container">
-<!--    <div class="small-container">-->
-<!--        <div class="row row-2">-->
-<!--            <aside class="sidebar">-->
-<!--                <h2>Категории товаров</h2>-->
-<!--                <ul>-->
-<!--                    {% for category in categories %}-->
-<!--                    <li><a href="{% url 'products_by_category' category.slug %}">{{ category.name }}</a></li>-->
-<!--                    {% endfor %}-->
-<!--                </ul>-->
-<!--            </aside>-->
-<!--        </div>-->
-<!--    </div>-->
+    <!--    <div class="small-container">-->
+    <!--        <div class="row row-2">-->
+    <!--            <aside class="sidebar">-->
+    <!--                <h2>Категории товаров</h2>-->
+    <!--                <ul>-->
+    <!--                    {% for category in categories %}-->
+    <!--                    <li><a href="{% url 'products_by_category' category.slug %}">{{ category.name }}</a></li>-->
+    <!--                    {% endfor %}-->
+    <!--                </ul>-->
+    <!--            </aside>-->
+    <!--        </div>-->
+    <!--    </div>-->
     <section>
-<!--        <h2 id="fruits">Все товары</h2>-->
+        <!--        <h2 id="fruits">Все товары</h2>-->
         <div class="category">
             {% for product in products %}
             <div class="product">
@@ -46,12 +47,19 @@
                            value="1">
                 </div>
                 <div class="productbtns">
-                    <form class="form_style" action="{% url 'product_detail' product.slug %}" method="get" target="_self">
+                    <form class="form_style" action="{% url 'product_detail' product.slug %}" method="get"
+                          target="_self">
                         <button type="submit">Подробнее</button>
                     </form>
-                    <form class="form_style" action="#" method="get" target="_self">
-                        <button type="submit">В корзину</button>
-                    </form>
+                    {% if product.id|string_value in cart.cart %}
+                    <form class="form_style" action="{% url 'add_to_cart' product.slug %}" method="get" target="_self">
+                        <button type="submit">Добавлено</button>
+                        {% else %}
+
+                        <form class="form_style" action="{% url 'add_to_cart' product.slug %}" method="get" target="_self">
+                            <button type="submit">В корзину</button>
+                        </form>
+                    {% endif %}
                 </div>
             </div>
             {% endfor %}

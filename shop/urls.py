@@ -1,6 +1,7 @@
 from django.conf.urls.static import static
 from django.urls import path
 
+from cart.views import cart_add
 from website_shop import settings
 from .views import (ProductListView, CategoryCreateView,
                     CategoryListView, ProductCreateView,
@@ -9,13 +10,20 @@ from .views import (ProductListView, CategoryCreateView,
                     ProductDeleteView, ProductListByCategory, ProductDetailView)
 from .views import product_search
 
+
+
+
 urlpatterns = [
     path('search/', product_search, name="product_search"),
     path('products/', ProductListView.as_view(), name='products'),
     path('products/add/', ProductCreateView.as_view(), name='products_add'),
     path('edit_product/<int:pk>/', ProductUpdateView.as_view(), name='edit_product'),
     path('delete_product/<int:pk>/', ProductDeleteView.as_view(), name='delete_product'),
-path('<slug:slug>/', ProductDetailView.as_view(), name='product_detail'),
+    path('<slug:slug>/', ProductDetailView.as_view(), name='product_detail'),
+    path('<slug:slug>/addToCart/', cart_add, name='add_to_cart'),
+
+
+    # path('about/', AboutView.as_view(), name='about'),
 
 
     path('categories/', CategoryListView.as_view(), name='categories'),
@@ -26,6 +34,7 @@ path('<slug:slug>/', ProductDetailView.as_view(), name='product_detail'),
 
     path('categories/<slug:slug>/', CategoryDetailView.as_view(), name='category_detail'),
 
-]
+
+   ]
 
 

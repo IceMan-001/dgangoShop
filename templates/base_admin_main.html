@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load custom_tags %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,7 +17,7 @@
 <header>
     <div class="logo">
                 <span class="windsong-medium">
-                    <p>Andrey_Bobrov</p>
+                    <p>My_Shop</p>
                 </span>
             </div>
    <div class="menu-nav">
@@ -60,6 +61,7 @@
             </li>
             <li><a href="#">О Сайте</a></li>
             <li><a href="#">Контакты</a></li>
+             <li class="first"><a href="{% url 'cart:cart_detail' %}" target="_self">Корзина ({{cart|length}})</a></li>
         </ul>
         <div class="search">
             <form action="{% url 'product_search' %}" method="get" style="margin-top:10px; margin-left:40px">

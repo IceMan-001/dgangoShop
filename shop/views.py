@@ -70,6 +70,9 @@ class ProductListByCategory(ListView):
 
     def get_queryset(self):
         # Получаем категорию по slug из URL
+        if not self.kwargs.get('slug'):
+            return Product.object.all()
+        
         category = get_object_or_404(Category, slug=self.kwargs['slug'])
         return Product.objects.filter(category=category)
 
@@ -144,3 +147,11 @@ def product_search(request):
     context = {'categories': categories, 'products': results}
 
     return render(request, template_name="shop/home.html", context=context)
+
+
+# class AboutView(ListView):
+#     template_name = 'shop/about.html'
+#     extra_context = {
+#         'title': 'Страница о нас',
+#     }
+#     pass
