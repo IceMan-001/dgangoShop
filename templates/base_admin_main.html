@@ -13,38 +13,98 @@
 </head>
 <body>
 {% block header %}
-    <header>
-        <div class="navbar">
-            <div class="logo">
+<header>
+    <div class="logo">
                 <span class="windsong-medium">
                     <p>Andrey_Bobrov</p>
                 </span>
             </div>
-            <nav>
+   <div class="menu-nav">
+        <ul>
+            <li class="first"><a href="{% url 'products' %}" target="_self">Главная</a></li>
+            <li><a href="#">Категории товаров</a>
                 <ul>
-                    <li>
-                        <a href="{% url 'products' %}" target="_self" class="down">Home</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'users:register' %}" target="_self">Регистрация </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'users:login' %}" target="_self">Войти </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'users:profile' %}">{{ user.username }} </a>
-                        <a href="{% url 'users:logout' %}">Выйти </a>
-                    </li>
+                    {% for category in categories %}
+                    <li><a href="{% url 'products_by_category' category.slug %}">{{ category.name }}</a></li>
+                    {% endfor %}
                 </ul>
-            </nav>
-            <div class="search">
-                <form action="{% url 'product_search' %}" method="get" style="margin-top:10px; margin-left:20px">
-                    <input type="search" name="query" placeholder="Search products...">
-                    <button type="submit">Поиск</button>
-                </form>
-            </div>
+            </li>
+<!--            <li><a href="#">Видео</a>-->
+<!--                <ul>-->
+<!--                    <li><a href="#">Youtube</a></li>-->
+<!--                    <li><a href="#">Vimeo</a></li>-->
+<!--                    <li><a href="#">Rutube</a></li>-->
+<!--                </ul>-->
+<!--            </li>-->
+<!--            <li><a href="#">Программы</a>-->
+<!--                <ul>-->
+<!--                    <li><a href="#">Система</a></li>-->
+<!--                    <li><a href="#">Безопасность</a></li>-->
+<!--                    <li><a href="#">Мультимедиа</a></li>-->
+<!--                    <li><a href="#">Интернет</a></li>-->
+<!--                </ul>-->
+<!--            </li>-->
+            <li><a href="#">Аккаунт</a>
+                  {% if not user.is_authenticated %}
+                <ul>
+                    <li><a href="{% url 'users:login' %}">Войти</a></li>
+                     <li><a href="{% url 'users:register' %}">Регистрация</a></li>
+                </ul>
+                {% endif %}
+                {% if user.is_authenticated %}
+                 <ul>
+                    <li><a href="{% url 'users:profile_list' %}">Пользователь: <i>{{user.username}}</i></a></li>
+                    <li><a href="{% url 'users:logout' %}">Выйти</a></li>
+                </ul>
+                {% endif %}
+            </li>
+            <li><a href="#">О Сайте</a></li>
+            <li><a href="#">Контакты</a></li>
+        </ul>
+        <div class="search">
+            <form action="{% url 'product_search' %}" method="get" style="margin-top:10px; margin-left:40px">
+                <input type="search" name="query" placeholder="Search products...">
+                <button type="submit">Поиск</button>
+            </form>
         </div>
-    </header>
+    </div>
+</header>
+
+
+
+
+<!--    <header>-->
+<!--        <div class="navbar">-->
+<!--            <div class="logo">-->
+<!--                <span class="windsong-medium">-->
+<!--                    <p>Andrey_Bobrov</p>-->
+<!--                </span>-->
+<!--            </div>-->
+<!--            <nav>-->
+<!--                <ul>-->
+<!--                    <li>-->
+<!--                        <a href="{% url 'products' %}" target="_self" class="down">Home</a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="{% url 'users:register' %}" target="_self">Регистрация </a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="{% url 'users:login' %}" target="_self">Войти </a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="{% url 'users:profile' %}">{{ user.username }} </a>-->
+<!--                        <a href="{% url 'users:logout' %}">Выйти </a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </nav>-->
+<!--            <div class="search">-->
+<!--                <form action="{% url 'product_search' %}" method="get" style="margin-top:10px; margin-left:20px">-->
+<!--                    <input type="search" name="query" placeholder="Search products...">-->
+<!--                    <button type="submit">Поиск</button>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </header>-->
 {% endblock header %}
 
 {% block main %}

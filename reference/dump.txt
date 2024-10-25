@@ -6,3 +6,15 @@
 
 - Восстановить данные из dump в базе:
     python manage.py loaddata data.json
+
+
+
+-> Из под винды создание:
+    python -Xutf8 manage.py dumpdata --exclude contenttypes --output db.json
+
+-> Восстановление
+    python manage.py loaddata db.json,
+    или при проблемах с кодировкой
+    python -Xutf8 manage.py loaddata db.json
+
+https://proghunter.ru/articles/django-base-2023-installing-postgresql-in-django?ysclid=m1uzznon2229572382#сохранение-данных-для-переноса-бд-из-sqlite-в-postgresql-в-django
