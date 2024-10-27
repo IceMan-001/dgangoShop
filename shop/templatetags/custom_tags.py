@@ -9,6 +9,7 @@ register = template.Library()
 def string_value(product_id):
     return str(product_id)
 
+
 @register.filter
-def count_item(cart, product_id):
+def count_items(cart, product_id):
     return cart.cart[str(product_id)]['quantity']

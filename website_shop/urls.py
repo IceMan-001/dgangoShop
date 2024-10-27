@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from website_shop import settings
 from django.conf.urls.static import static
-from shop.views import AdminTemplateView, ProductCreateView, ProductListView
+from shop.views import AdminTemplateView, ProductCreateView, ProductListView, about, contact
 
 urlpatterns = [
     path('', ProductListView.as_view()),
@@ -26,6 +26,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('product/', include('shop.urls')),
     path('cart/', include('cart.urls')),
+    path('about/', about, name='about'),
+    path('contact/', contact, name='contact'),
 
     path('users/', include('users.urls', namespace="users")),
 ]

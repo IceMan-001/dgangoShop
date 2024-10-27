@@ -9,8 +9,6 @@ from .forms import CategoryCreateForm, ProductCreateForm
 from django.db.models import Q
 
 
-
-
 class AdminTemplateView(TemplateView):  # Админская страница
     template_name = 'shop/admin.html'
 
@@ -29,15 +27,14 @@ class ProductCreateView(CreateView):
         'products')  # success_url определяет маршрут перенаправления при успешной отправке после валидации формы
 
 
-# class ProductListView(ListView):
-#     model = Product
-#     template_name = 'shop/home.html'
-#     context_object_name = 'products'
+class ListCategoriesView(ListView):
+    model = Category
+    template_name = 'shop/categories.html.html'
+    context_object_name = 'categories'
 
 
 class ProductListView(TemplateView):
     template_name = 'shop/home.html'
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -72,7 +69,7 @@ class ProductListByCategory(ListView):
         # Получаем категорию по slug из URL
         if not self.kwargs.get('slug'):
             return Product.object.all()
-        
+
         category = get_object_or_404(Category, slug=self.kwargs['slug'])
         return Product.objects.filter(category=category)
 
@@ -154,4 +151,23 @@ def product_search(request):
 #     extra_context = {
 #         'title': 'Страница о нас',
 #     }
-#     pass
+
+
+def about(request):
+    context = {
+        'name': 'Ivan',
+        'lastname': 'Ivanov',
+        'email': 'ivanivanov@yandex.ru',
+        'title': 'Страница о нас',
+    }
+    return render(request, template_name='shop/about.html', context=context)
+
+
+def contact(request):
+    context = {
+        'name': 'Ivan',
+        'lastname': 'Ivanov',
+        'email': 'ivanivanov@yandex.ru',
+        'title': 'Страница контактов',
+    }
+    return render(request, template_name='shop/contact.html', context=context)

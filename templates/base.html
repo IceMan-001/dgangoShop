@@ -1,10 +1,12 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     {% block title %}
     <title>Title</title>
     {% endblock title %}
+ <link rel="stylesheet" href="{% static 'css/styles_cart_table.css' %}">
 </head>
 <body>
 {% block header %}

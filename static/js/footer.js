@@ -1,11 +1,3 @@
-// Высчитываем высоту footer и делаем соответствующий отступ от main:
-function footer() {
-    const
-        main = document.getElementsByTagName('main')[0],
-        footer = document.getElementsByTagName('footer')[0]
-
-    main.style.paddingBottom = footer.clientHeight + 'px'
+if( $(document).height() <= $(window).height() ){
+  $(".page-footer").addClass("fixed-bottom");
 }
-
-window.addEventListener('load', footer);
-window.addEventListener('resize', footer);

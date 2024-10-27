@@ -53,7 +53,8 @@
                     </form>
                     {% if product.id|string_value in cart.cart %}
                     <form class="form_style" action="{% url 'add_to_cart' product.slug %}" method="get" target="_self">
-                        <button type="submit">Добавлено</button>
+                        <button type="submit">Добавлено {{cart|count_items:product.id|string_value}}</button>
+                    </form>
                         {% else %}
 
                         <form class="form_style" action="{% url 'add_to_cart' product.slug %}" method="get" target="_self">

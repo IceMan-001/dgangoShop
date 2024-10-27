@@ -2,36 +2,12 @@
 {% load static %}
 
 {% block content %}
-<style>
-     .table{
-	border: 1px solid #eee;
-	table-layout: fixed;
-	width: 100%;
-	margin-bottom: 20px;
-}
-.table th {
-	font-weight: bold;
-	padding: 5px;
-	background: #efefef;
-	border: 1px solid #dddddd;
-}
-.table td{
-	padding: 5px 10px;
-	border: 1px solid #eee;
-	text-align: left;
-}
-.table tbody tr:nth-child(odd){
-	background: #fff;
-}
-.table tbody tr:nth-child(even){
-	background: #F7F7F7;
-}
-</style>
+
 
 <table class="table">
     <thead>
     <tr>
-        <th>№</th>
+        <th>Товарный номер</th>
         <th>Изображение</th>
         <th>Наименование</th>
         <th>Цена</th>
@@ -67,5 +43,5 @@
     {% endfor %}
 </table>
 <p>Сумма товаров в корзине: {{cart.get_total_price}}</p>
-<p>Всего товаров в корзине: {{cart.leng}}</p>
+<p>Всего товаров в корзине: {{cart|length}}</p>
 {% endblock content %}

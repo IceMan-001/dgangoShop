@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     {% block title %}
-    <title>Title</title>
+        <title>Title</title>
     {% endblock title %}
     <link rel="stylesheet" href="{% static 'css/styles_header.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles_footer.css' %}">
@@ -15,52 +15,49 @@
 </head>
 <body>
 {% block header %}
-<div class="nav">
-    <input type="checkbox" id="nav-check">
-    <div class="nav-header">
-        <div class="nav-title">
-            Navbar
+    <div class="nav">
+        <input type="checkbox" id="nav-check">
+        <div class="nav-header">
+            <div class="nav-title">
+                Administration Panel
+            </div>
+        </div>
+        <div class="nav-btn">
+            <label for="nav-check">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+        </div>
+
+        <div class="nav-links">
+            <a href="{% url 'products' %}" target="_self">Главная страница </a>
+            <a href="{% url 'admin-page' %}" target="_self">Меню </a>
+            <a href="{% url 'users:profile' %}">Вы авторизованы как: <i>{{ user.username }} </i></a>
+            <a href="{% url 'users:logout' %}" target="_self">Выйти</a>
         </div>
     </div>
-    <div class="nav-btn">
-        <label for="nav-check">
-            <span></span>
-            <span></span>
-            <span></span>
-        </label>
-    </div>
-
-    <div class="nav-links">
-        <a href="{% url 'products' %}" target="_self">Products |</a>
-        <a href="{% url 'admin-page' %}" target="_self">Selection menu |</a>
-        <a href="{% url 'users:register' %}" target="_self">Регистрация |</a>
-        <a href="{% url 'users:profile' %}">{{user.username}} | </a><a href="{% url 'users:logout' %}">Выйти |</a>
-        <a href="{% url 'users:login' %}" target="_self">Войти</a>
-    </div>
-</div>
 {% endblock header %}
-<main>
-    <p></p>
-    <form action="" method="get">
-            <input name="s" placeholder="Искать здесь..." type="search">
-            <button type="submit">Поиск</button>
-    </form>
-    {% block content %}
-    {% endblock content %}
-</main>
+
+{% block content %}
+{% endblock content %}
+
 {% block footer %}
-<footer class="page-footer">
-    <div class="icons">
-        <a href="#"><i class="fa fa-vk"></i></a>
-        <a href="#"><i class="fa fa-youtube"></i></a>
-        <a href="#"><i class="fa fa-github"></i></a>
-        <a href="#"><i class="fa fa-codepen"></i></a>
-        <p class="company-name">
-            ABC &copy; 2024, ALL Rights Reserved
-        </p>
-    </div>
-</footer>
-<!--<script src="{% static 'js/footer.js' %}"></script>-->
+    <footer class="page-footer">
+        <div class="icons">
+            <a href="#"><i class="fa fa-vk"></i></a>
+            <a href="#"><i class="fa fa-youtube"></i></a>
+            <a href="#"><i class="fa fa-github"></i></a>
+            <a href="#"><i class="fa fa-codepen"></i></a>
+            <p class="company-name">
+                ABC &copy; 2024, ALL Rights Reserved
+            </p>
+        </div>
+    </footer>
 {% endblock footer %}
+
+<script src="{% static 'js/footer.js' %}"></script>
+</body>
+</html>
 
 
