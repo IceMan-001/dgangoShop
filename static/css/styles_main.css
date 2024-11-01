@@ -1,0 +1,418 @@
+/* styles_main.css */
+
+body {
+    background: #F5F5DC;
+    margin: 0;
+    font-family:Helvetica,Arial, sans-serif;
+    font-size:14px;
+
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 15px 20px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo p {
+    font-family: "WindSong", cursive;
+    font-weight: 400;
+    font-style: normal;
+    margin: 0;
+    font-size: 1.5em;
+    color: #4caf50;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.2em;
+    transition: color 0.3s ease-in-out;
+}
+
+nav a:hover {
+    color: #ffd700;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+}
+
+.search input {
+    padding: 8px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.search button {
+    background-color: #ffd700;
+    color: #333;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.search button:hover {
+    background-color: #ffc107;
+}
+
+@media screen and (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav {
+        margin-top: 10px;
+    }
+
+    nav ul {
+        flex-direction: column;
+    }
+
+    nav li {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .search {
+        margin-top: 10px;
+    }
+}
+
+.container {
+    display: grid;
+    gap: 1rem;
+    min-height: 100vh;
+}
+
+.category {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+    gap: 1rem;
+}
+
+.product {
+    position: relative;
+    max-height: 100%;
+    border: 1px solid #ddd;
+    padding: 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.5rem;
+    transition: box-shadow 0.3s ease-in-out;
+
+}
+
+.product:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+img {
+    max-width: 100%;
+    height: 200px;
+    object-fit: fill;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+    margin-bottom: 1rem;
+}
+
+.product:hover img {
+    transform: scale(1.05);
+}
+
+.productbtns button {
+    display: inline;
+    margin-top: 1rem;
+    margin-button: 0;
+    cursor: pointer;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
+.productbtns button:hover {
+    background-color: #ffc107;
+}
+
+
+.qyt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qyt input {
+    width: 30px;
+    border-radius: 0.1rem;
+    border: 0.1rem solid #4caf50;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.price {
+    color: #ffc107;
+    font-weight: 600;
+    margin: 0 0;
+}
+
+.qyt input,
+.qyt label {
+    margin: 0px 10px;
+}
+
+.product h3 {
+    margin: 0 0;
+}
+
+.image-placeholder {
+    width: 100%;
+    height: 200px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.image-placeholder:hover {
+    transform: scale(1.05);
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    bottom: 0;
+    width: auto;
+    padding: 1rem 0rem;
+}
+
+footer p {
+    margin: 0;
+    font-size: 1rem;
+    font-family: "WindSong", cursive;
+    font-weight: 400;
+    font-style: normal;
+
+}
+
+@media screen and (max-width: 768px) {
+    footer {
+        font-size: 0.8em;
+    }
+}
+
+
+.row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+.sidebar a {
+    text-decoration: none;
+    color: #00a6ff;
+    font-weight: normal;
+    font-size: 0.9rem;
+}
+
+.button a {
+     background-color: #FF4500;
+     border: none;
+     color: white;
+     padding: 20px 34px;
+     text-align: center;
+     text-decoration: none;
+     display: inline-block;
+     font-size: 20px;
+     margin: 4px 2px;
+     cursor: pointer;
+    }
+
+.form_style {
+    display: inline;
+}
+
+
+
+/*База*/
+* {margin: 0; padding: 0;}
+
+
+#container {
+    width:960px; /*Ширина контейнера*/
+    margin: 10px auto;
+}
+/*Меню*/
+.menu-nav {
+    position:relative;
+    max-width: 100%; /*Ширина панели меню*/
+    height:50px;
+    font-size:14px;
+    color:#999;
+    margin: 0 auto;
+    margin-top: 20px;
+ /*Цвет и градиент фона панели меню*/
+    background: #395593;
+    background: -moz-linear-gradient(top, #647db5, #395593);
+    background: -webkit-gradient(linear, left top, left bottom, from(#647db5), to(#395593));
+    background-image: -o-linear-gradient(top,rgb(100, 125, 181), rgb(57, 85, 147));
+    text-shadow: 0 -1px 0 #111;
+    border: 1px solid #444;
+/*Закругленные углы панели меню*/
+    border-radius: 8px;
+   -moz-border-radius: 8px;
+   -khtml-border-radius: 8px;
+   -webkit-border-radius: 8px;
+   z-index: 1;
+}
+
+.menu-nav ul {
+    list-style:none;
+    color: #FFF;
+}
+
+.menu-nav ul li {
+     float:left;
+     position:relative;
+}
+.menu-nav ul li a {
+    border-right:1px solid #364f87;
+    border-left:1px solid #7189c0;
+    padding:17px;
+    display:block;
+    text-decoration:none;
+    text-align:center;
+    color:#FFF;
+    background: #395593;
+    background: -moz-linear-gradient(top, #647db5, #395593);
+    background: -webkit-gradient(linear, left top, left bottom, from(#647db5), to(#395593));
+    background-image: -o-linear-gradient(top,rgb(100, 125, 181), rgb(57, 85, 147));
+    text-shadow: 0 -1px 0 #111;
+}
+.menu-nav li.first a {
+    border-radius: 8px 0 0 8px;
+   -moz-border-radius: 8px 0 0 8px;
+   -khtml-border-radius: 8px 0 0 8px;
+   -webkit-border-radius: 8px 0 0 8px;
+}
+ /*Цвет и градиент фона при наведении*/
+.menu-nav ul li a:hover {
+    background: #647db5;
+    background: -moz-linear-gradient(top, #395593, #647db5);
+    background: -webkit-gradient(linear, left top, left bottom, from(#395593), to(#647db5));
+    background-image: -o-linear-gradient(top,rgb(57, 85, 147), rgb(100, 125, 181));
+    color:#fff;
+}
+.menu-nav ul li ul {
+    display: none;
+}
+.menu-nav ul li:hover ul {
+    display: block;
+    position: absolute;
+    min-width:200px;
+    left:0;
+    margin-top: -1px;
+}
+.menu-nav ul li:hover ul li a {
+    display:block;
+    color:#ffffff;
+    width: 123px;
+    text-align: center;
+    border-bottom: 1px solid #283f74;
+    border-top: 1px solid #366ea6;
+    background: #364f87;
+}
+.menu-nav ul li ul li:first-child a {
+    border-top:none;
+}
+.menu-nav ul li ul li:last-child a {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+}
+.menu-nav ul li:hover ul li a:hover {
+    background:#395593;
+    color:#ffffff;
+}
+
+
+.search {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    margin-right: 10px;
+}
+
+.search input {
+    padding: 8px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.search button {
+    background-color: #ffd700;
+    color: #333;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.search button:hover {
+    background-color: #ffc107;
+}
+
+.truncate {
+    margin: 0; /* Убираем внешний отступ */
+    -webkit-line-clamp: 2; /* Число отображаемых строк */
+    display: -webkit-box; /* Включаем флексбоксы */
+    -webkit-box-orient: vertical; /* Вертикальная ориентация */
+    overflow: hidden; /* Обрезаем всё за пределами блока */
+}

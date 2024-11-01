@@ -1,7 +1,31 @@
-{% extends 'base_admin_main.html' %}
+{% extends 'base_secondary.html' %}
 {% load static %}
 
 {% block content %}
+
+    <style>
+    .table {
+	width: 100%;
+	margin-bottom: 20px;
+	border-collapse: collapse;
+}
+.table th {
+	font-weight: bold;
+	padding: 5px;
+	background: #efefef;
+	border: 1px solid #dddddd;
+}
+.table td {
+	border: 1px solid #dddddd;
+	padding: 5px;
+}
+.table tr td:first-child, .table tr th:first-child {
+	border-left: none;
+}
+.table tr td:last-child, .table tr th:last-child {
+	border-right: none;
+}
+    </style>
 
 {% if cart|length != 0%}
 <table class="table">
@@ -20,7 +44,7 @@
         <input type="hidden" value="{{product.id}}" id="productId">
         <tr>
             <td>
-<!--              forloop.counter  статичная переменная стартует с 1, работает в цикле-->
+<!--              forloop.counter статичная переменная стартует с 1, работает в цикле-->
                 {{ forloop.counter }}
             </td>
             <td>

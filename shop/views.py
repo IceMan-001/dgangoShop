@@ -29,7 +29,7 @@ class ProductCreateView(CreateView):
 
 class ListCategoriesView(ListView):
     model = Category
-    template_name = 'shop/categories.html.html'
+    template_name = 'shop/categories.html'
     context_object_name = 'categories'
 
 
