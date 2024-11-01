@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 from shop.views import AdminTemplateView, ProductCreateView, ProductListView, about, contact
 
 urlpatterns = [
-    path('', ProductListView.as_view()),
+    path('', ProductListView.as_view()),  # корень сайта
     path('staff/', AdminTemplateView.as_view(), name='admin-page'),
     path('admin/', admin.site.urls),
     path('product/', include('shop.urls')),
@@ -29,7 +29,7 @@ urlpatterns = [
     path('about/', about, name='about'),
     path('contact/', contact, name='contact'),
 
-    path('users/', include('users.urls', namespace="users")),
+    path('users/', include('users.urls', namespace="users")), # include() -> группировала маршрутов, относящихся к одной категории
 ]
 
 # включаем возможность обработки картинок

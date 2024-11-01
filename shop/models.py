@@ -54,14 +54,11 @@ class Product(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        slug = slugify(self.name)
-        counter = 1
-        while Product.objects.filter(slug=slug).exists():
-            slug = f"{slug}-{counter}"
-            counter += 1
-            self.slug = slug
-
-        super().save(*args, **kwargs)
+        super().save(*args, **kwargs)  # вызываем родительский метод и сохраняется продукт со всеми полями
+        slug_name = slugify(self.name)  # Получаем слаг-имя типа: iphone16-pro-16Gb записываем ее в переменную
+        slug = f"{slug_name}-{self.pk}"  # Добавляем к имени переменной id
+        self.slug = slug  #  slug = f"{slug_name}-{self.pk}" можно сразу присвоить без промежуточного значения
+        super().save(*args, **kwargs)  # еще раз выполняется метод сохранения как update
 
     def get_absolut_url(self):
         return reverse('product_detail', kwargs={'slug': self.slug})

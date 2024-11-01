@@ -30,21 +30,6 @@
                     {% endfor %}
                 </ul>
             </li>
-<!--            <li><a href="#">Видео</a>-->
-<!--                <ul>-->
-<!--                    <li><a href="#">Youtube</a></li>-->
-<!--                    <li><a href="#">Vimeo</a></li>-->
-<!--                    <li><a href="#">Rutube</a></li>-->
-<!--                </ul>-->
-<!--            </li>-->
-<!--            <li><a href="#">Программы</a>-->
-<!--                <ul>-->
-<!--                    <li><a href="#">Система</a></li>-->
-<!--                    <li><a href="#">Безопасность</a></li>-->
-<!--                    <li><a href="#">Мультимедиа</a></li>-->
-<!--                    <li><a href="#">Интернет</a></li>-->
-<!--                </ul>-->
-<!--            </li>-->
             <li><a href="#">Аккаунт</a>
                   {% if not user.is_authenticated %}
                 <ul>
@@ -63,7 +48,7 @@
             </li>
             <li><a href="{% url 'about' %}">О Сайте</a></li>
             <li><a href="{% url 'contact' %}">Контакты</a></li>
-             <li class="first"><a href="{% url 'cart:cart_detail' %}" target="_self">Корзина ({{cart|length}})</a></li>
+             <li class="first"><a href="{% url 'cart:cart_detail' %}" target="_self">Корзина (<span id="cartLengthHeader">{{cart|length}}</span>)</a></li>
         </ul>
         <div class="search">
             <form action="{% url 'product_search' %}" method="get" style="margin-top:10px; margin-left:40px">

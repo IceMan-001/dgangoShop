@@ -8,20 +8,7 @@
 
 {% block content %}
 <div class="container">
-    <!--    <div class="small-container">-->
-    <!--        <div class="row row-2">-->
-    <!--            <aside class="sidebar">-->
-    <!--                <h2>Категории товаров</h2>-->
-    <!--                <ul>-->
-    <!--                    {% for category in categories %}-->
-    <!--                    <li><a href="{% url 'products_by_category' category.slug %}">{{ category.name }}</a></li>-->
-    <!--                    {% endfor %}-->
-    <!--                </ul>-->
-    <!--            </aside>-->
-    <!--        </div>-->
-    <!--    </div>-->
     <section>
-        <!--        <h2 id="fruits">Все товары</h2>-->
         <div class="category">
             {% for product in products %}
             <div class="product">

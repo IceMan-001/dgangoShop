@@ -11,7 +11,7 @@ from .views import (ProductListView, CategoryCreateView,
                     ProductDetailView)
 from .views import product_search
 
-
+# my_site/product/products/
 urlpatterns = [
     path('search/', product_search, name="product_search"),
     path('products/', ProductListView.as_view(), name='products'),
