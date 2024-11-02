@@ -3,7 +3,7 @@
 
 {% block content %}
 
-    <style>
+<style>
     .table {
 	width: 100%;
 	margin-bottom: 20px;
@@ -25,7 +25,7 @@
 .table tr td:last-child, .table tr th:last-child {
 	border-right: none;
 }
-    </style>
+</style>
 
 {% if cart|length != 0%}
 <table class="table">
@@ -40,41 +40,65 @@
     </tr>
     </thead>
     {% for item in cart %}
-        {% with product=item.product %}
-        <input type="hidden" value="{{product.id}}" id="productId">
-        <tr>
-            <td>
-<!--              forloop.counter статичная переменная стартует с 1, работает в цикле-->
-                {{ forloop.counter }}
-            </td>
-            <td>
-                {% if product.image %}
-                <img src="{{product.image.url}}" style="width: 30px; height:30px">
-                {% endif %}
-            </td>
-            <td>
-                {{product.name}}
-            </td>
-            <td>
-<!--                |floatformat:0 - фильтр убрать знаки после запятой 0 количество точек после 0-->
-                <span id="productPrice">{{ product.price|floatformat:0 }}</span> руб.
-            </td>
-            <td>
-                <input id="prod_quantity" name="prod_quantity" type="number" min="1" max="100000" value="{{ item.quantity }}">
-            </td>
-            <td>
-                <span id="itemPrice">{{ item.total_price|floatformat:0 }}</span>  руб.
-            </td>
-        </tr>
+    {% with product=item.product %}
+    <input type="hidden" value="{{product.id}}" id="productId">
+    <tr>
+        <td>
+            <!--              forloop.counter статичная переменная стартует с 1, работает в цикле-->
+            {{ forloop.counter }}
+        </td>
+        <td>
+            {% if product.image %}
+            <img src="{{product.image.url}}" style="width: 30px; height:30px">
+            {% endif %}
+        </td>
+        <td>
+            {{product.name}}
+        </td>
+        <td>
+            <!--                |floatformat:0 - фильтр убрать знаки после запятой 0 количество точек после 0-->
+            <span id="productPrice">{{ product.price|floatformat:0 }}</span> руб.
+        </td>
+        <td>
+            <input id="prod_quantity" name="prod_quantity" type="number" min="1" max="100000"
+                   value="{{ item.quantity }}">
+        </td>
+        <td>
+            <span id="itemPrice">{{ item.total_price|floatformat:0 }}</span> руб.
+        </td>
+    </tr>
     {% endwith %}
     {% endfor %}
 </table>
 <div style="width:80%; text-align:justify; margin:0 auto; padding-top:50px">
     <div>Товаров в корзине: <span id="cartLength">{{ cart|length }}</span></div>
-    <div>Cумма товаров в корзине: <span id="totalPriceCart">{{ cart.get_total_price|floatformat:0 }}</span>  руб.</div>
+    <div>Cумма товаров в корзине: <span id="totalPriceCart">{{ cart.get_total_price|floatformat:0 }}</span> руб.</div>
 
     <div style="padding-top:10px">
-        <a href="#" class="btn-blue" id="newOrder">Оформить заказ</a>
+        <form>
+            <a href="#" class="btn-blue" id="newOrder"></a>
+            <button class="submit"
+                    style="padding: 0.5em 1.5em; /* Поля по вертикали и горизонтали */
+                            color: white; /* Цвет текста */
+                            font-family: Helvetica, Arial, sans-serif;/* Моноширинный шрифт */
+                            font-size: 1em; /* Размер текста */
+                            background-image: linear-gradient(rgba(63,81,181,0.5),  rgb(63,81,181),  rgba(63,81,181,0.5));
+                            border-color: rgb(63,81,181);
+                            border-radius: 0.4em; /* Радиус скругления */">Оформить заказ
+            </button>
+
+
+            <a href="#" class="btn"></a>
+            <button class="submit"
+                    style="padding: 0.5em 1.5em; /* Поля по вертикали и горизонтали */
+                            color: white; /* Цвет текста */
+                            font-family: Helvetica, Arial, sans-serif;/* Моноширинный шрифт */
+                            font-size: 1em; /* Размер текста */
+                            background-image: linear-gradient(rgba(63,81,181,0.5),  rgb(63,81,181),  rgba(63,81,181,0.5));
+                            border-color: rgb(63,81,181);
+                            border-radius: 0.4em; /* Радиус скругления */">Очистить корзину
+            </button>
+        </form>
     </div>
 </div>
 

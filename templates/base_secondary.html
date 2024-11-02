@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     {% block title %}
-        <title>Title</title>
+    <title>Title</title>
     {% endblock title %}
     <link rel="stylesheet" href="{% static 'css/styles_secondary.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,8 +19,8 @@
                 <span class="windsong-medium">
                     <p>My_Shop</p>
                 </span>
-            </div>
-   <div class="menu-nav">
+    </div>
+    <div class="menu-nav">
         <ul>
             <li class="first"><a href="{% url 'products' %}" target="_self">Главная</a></li>
             <li><a href="#">Категории товаров</a>
@@ -31,24 +31,30 @@
                 </ul>
             </li>
             <li><a href="#">Аккаунт</a>
-                  {% if not user.is_authenticated %}
+                {% if not user.is_authenticated %}
                 <ul>
                     <li><a href="{% url 'users:login' %}">Войти</a></li>
-                     <li><a href="{% url 'users:register' %}">Регистрация</a></li>
+                    <li><a href="{% url 'users:register' %}">Регистрация</a></li>
                 </ul>
                 {% endif %}
                 {% if user.is_authenticated %}
-                 <ul>
+                <ul>
                     <li><a href="{% url 'users:profile_list' %}">Пользователь: <i>{{user.username}}</i></a></li>
-                     <li><a href="{% url 'admin-page' %}">Администрирование</a></li>
-                     <li><a href="{% url 'users:logout' %}">Выйти</a></li>
+                    <li><a href="{% url 'admin-page' %}">Администрирование</a></li>
+                    <li><a href="{% url 'users:logout' %}">Выйти</a></li>
 
                 </ul>
                 {% endif %}
             </li>
             <li><a href="{% url 'about' %}">О Сайте</a></li>
             <li><a href="{% url 'contact' %}">Контакты</a></li>
-             <li class="first"><a href="{% url 'cart:cart_detail' %}" target="_self">Корзина (<span id="cartLengthHeader">{{cart|length}}</span>)</a></li>
+            {% if cart|length != 0 %}
+            <li class="first"><a href="{% url 'cart:cart_detail' %}" target="_self">Корзина (<span
+                    id="cartLengthHeader">{{cart|length}}</span>)</a></li>
+            {% else %}
+            <li class="first"><a href="{% url 'cart:cart_detail' %}" target="_self">Корзина (<span
+                    id="cartLengthHeader"></span>)</a></li>
+            {% endif %}
         </ul>
         <div class="search">
             <form action="{% url 'product_search' %}" method="get" style="margin-top:10px; margin-left:40px">
@@ -67,11 +73,11 @@
 {% endblock content %}
 
 {% block footer %}
-    <footer>
-        <p class="windsong-medium">&copy; 2024 Andrey Bobrov.
-            All rights reserved.
-        </p>
-    </footer>
+<footer>
+    <p class="windsong-medium">&copy; 2024 Andrey Bobrov.
+        All rights reserved.
+    </p>
+</footer>
 {% endblock footer %}
 
 </body>
