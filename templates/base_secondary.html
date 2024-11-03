@@ -49,11 +49,10 @@
             <li><a href="{% url 'about' %}">О Сайте</a></li>
             <li><a href="{% url 'contact' %}">Контакты</a></li>
             {% if cart|length != 0 %}
-            <li class="first"><a href="{% url 'cart:cart_detail' %}" target="_self">Корзина (<span
+            <li class="first"><a href="{% url 'cart_detail' %}" target="_self">Корзина (<span
                     id="cartLengthHeader">{{cart|length}}</span>)</a></li>
             {% else %}
-            <li class="first"><a href="{% url 'cart:cart_detail' %}" target="_self">Корзина (<span
-                    id="cartLengthHeader"></span>)</a></li>
+            <li class="first"><a href="{% url 'cart_detail' %}" target="_self">Корзина</a></li>
             {% endif %}
         </ul>
         <div class="search">

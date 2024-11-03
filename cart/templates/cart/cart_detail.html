@@ -3,228 +3,262 @@
 
 {% block content %}
 
-<style>
-    .table {
-	width: 100%;
-	margin-bottom: 20px;
-	border-collapse: collapse;
-}
-.table th {
-	font-weight: bold;
-	padding: 5px;
-	background: #efefef;
-	border: 1px solid #dddddd;
-}
-.table td {
-	border: 1px solid #dddddd;
-	padding: 5px;
-}
-.table tr td:first-child, .table tr th:first-child {
-	border-left: none;
-}
-.table tr td:last-child, .table tr th:last-child {
-	border-right: none;
-}
-</style>
+    <style>
+        .table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
 
-{% if cart|length != 0%}
-<table class="table">
-    <thead>
-    <tr>
-        <th>Товарный номер</th>
-        <th>Изображение</th>
-        <th>Наименование</th>
-        <th>Цена</th>
-        <th>Количество</th>
-        <th>Стоимость</th>
-    </tr>
-    </thead>
-    {% for item in cart %}
-    {% with product=item.product %}
-    <input type="hidden" value="{{product.id}}" id="productId">
-    <tr>
-        <td>
-            <!--              forloop.counter статичная переменная стартует с 1, работает в цикле-->
-            {{ forloop.counter }}
-        </td>
-        <td>
-            {% if product.image %}
-            <img src="{{product.image.url}}" style="width: 30px; height:30px">
-            {% endif %}
-        </td>
-        <td>
-            {{product.name}}
-        </td>
-        <td>
-            <!--                |floatformat:0 - фильтр убрать знаки после запятой 0 количество точек после 0-->
-            <span id="productPrice">{{ product.price|floatformat:0 }}</span> руб.
-        </td>
-        <td>
-            <input id="prod_quantity" name="prod_quantity" type="number" min="1" max="100000"
-                   value="{{ item.quantity }}">
-        </td>
-        <td>
-            <span id="itemPrice">{{ item.total_price|floatformat:0 }}</span> руб.
-        </td>
-    </tr>
-    {% endwith %}
-    {% endfor %}
-</table>
-<div style="width:80%; text-align:justify; margin:0 auto; padding-top:50px">
-    <div>Товаров в корзине: <span id="cartLength">{{ cart|length }}</span></div>
-    <div>Cумма товаров в корзине: <span id="totalPriceCart">{{ cart.get_total_price|floatformat:0 }}</span> руб.</div>
+        .table th {
+            font-weight: bold;
+            padding: 5px;
+            background: #efefef;
+            border: 1px solid #dddddd;
+        }
 
-    <div style="padding-top:10px">
-        <form>
-            <a href="#" class="btn-blue" id="newOrder"></a>
-            <button class="submit"
-                    style="padding: 0.5em 1.5em; /* Поля по вертикали и горизонтали */
-                            color: white; /* Цвет текста */
-                            font-family: Helvetica, Arial, sans-serif;/* Моноширинный шрифт */
-                            font-size: 1em; /* Размер текста */
-                            background-image: linear-gradient(rgba(63,81,181,0.5),  rgb(63,81,181),  rgba(63,81,181,0.5));
-                            border-color: rgb(63,81,181);
-                            border-radius: 0.4em; /* Радиус скругления */">Оформить заказ
-            </button>
+        .table td {
+            border: 1px solid #dddddd;
+            padding: 5px;
+        }
 
+        .table tr td:first-child, .table tr th:first-child {
+            border-left: none;
+        }
 
-            <a href="#" class="btn"></a>
-            <button class="submit"
-                    style="padding: 0.5em 1.5em; /* Поля по вертикали и горизонтали */
-                            color: white; /* Цвет текста */
-                            font-family: Helvetica, Arial, sans-serif;/* Моноширинный шрифт */
-                            font-size: 1em; /* Размер текста */
-                            background-image: linear-gradient(rgba(63,81,181,0.5),  rgb(63,81,181),  rgba(63,81,181,0.5));
-                            border-color: rgb(63,81,181);
-                            border-radius: 0.4em; /* Радиус скругления */">Очистить корзину
-            </button>
-        </form>
-    </div>
-</div>
+        .table tr td:last-child, .table tr th:last-child {
+            border-right: none;
+        }
 
-{% else %}
+        .button-style-order {
+            display: inline-block;
+            padding: 0.5em 1.5em;
+            color: #333;
+            font-family: Helvetica, Arial, sans-serif;
+            text-decoration: none;
+            text-align: center;
+            color: white;
+            background-image: linear-gradient(rgba(63, 81, 181, 0.5), rgb(63, 81, 181), rgba(63, 81, 181, 0.5));
+            border: 1px solid rgb(63, 81, 181);
+            border-radius: 0.4em;
+        }
 
-<div style="display: flex;
+        .button-style-order:hover, .button-style-order:focus {
+            background: #0a9b51;
+        }
+
+        .button-style-clear {
+            display: inline-block;
+            padding: 0.5em 1.5em;
+            color: #333;
+            font-family: Helvetica, Arial, sans-serif;
+            text-decoration: none;
+            text-align: center;
+            color: white;
+            background-image: linear-gradient(rgba(255, 151, 0, 0.5), rgb(255, 151, 0), rgba(255, 151, 0, 0.5));
+            border: 1px solid rgb(255, 151, 0);
+            border-radius: 0.4em;
+        }
+
+        .button-style-clear:hover, .button-style-clear:focus {
+            background: #f80f2c;
+        }
+
+        .close:hover {
+            filter: brightness(250%);
+        }
+
+    </style>
+
+    {% if cart|length != 0 %}
+        <table class="table" style="text-align: center;">
+            <thead>
+            <tr>
+                <th>Товарный номер</th>
+                <th>Изображение</th>
+                <th>Наименование</th>
+                <th>Цена</th>
+                <th>Количество</th>
+                <th>Стоимость</th>
+                <th>Действие</th>
+            </tr>
+            </thead>
+            {% for item in cart %}
+                {% with product=item.product %}
+                    <input type="hidden" value="{{ product.id }}" id="productId">
+                    <tr>
+                        <td>
+                            <!--              forloop.counter статичная переменная стартует с 1, работает в цикле-->
+                            {{ forloop.counter }}
+                        </td>
+                        <td>
+                            {% if product.image %}
+                                <img src="{{ product.image.url }}" style="width: 30px; height:30px;">
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{ product.name }}
+                        </td>
+                        <td>
+                            <!--                |floatformat:0 - фильтр убрать знаки после запятой 0 количество точек после 0-->
+                            <span id="productPrice">{{ product.price|floatformat:0 }}</span> руб.
+                        </td>
+                        <td>
+                            <input id="prod_quantity" name="prod_quantity" type="number" min="1" max="100000"
+                                   value="{{ item.quantity }}">
+                        </td>
+                        <td>
+                            <span id="itemPrice">{{ item.total_price|floatformat:0 }}</span> руб.
+                        </td>
+                        <td>
+                            <a href="{% url 'remove_product' product.id %}" class="close">
+                                <img src="{% static 'image/cart_delete.png' %}" style="width:30px; height:30px;">
+                            </a>
+                        </td>
+                    </tr>
+                {% endwith %}
+            {% endfor %}
+        </table>
+        <div style="width:80%; text-align:justify; margin:0 auto; padding-top:50px">
+            <div>Товаров в корзине: <span id="cartLength">{{ cart|length }}</span></div>
+            <div>Cумма товаров в корзине: <span id="totalPriceCart">{{ cart.get_total_price|floatformat:0 }}</span> руб.
+            </div>
+
+            <div style="padding-top:10px; display: flex; justify-content: space-between;">
+                <a href="#" class="button-style-order" id="newOrder">Оформить заказ</a>
+                <a href="{% url 'remove_cart_backend' %}" class="button-style-clear">Очистить корзину</a>
+            </div>
+        </div>
+
+    {% else %}
+
+        <div style="display: flex;
             justify-content: center;
             font-size: 30px;
             padding-top: 20px;
             padding-bottom: 40px;">
-    Корзина пуста!
-</div>
+            Корзина пуста!
+        </div>
 
-{% endif %}
+    {% endif %}
 
 
-<script>
-    async function removeItemFetch(event){
-        let productId = event.target.parentElement.parentElement.querySelector("#productId").value
+    <script>
+        async function removeItemFetch(event) {
+            let productId = event.target.parentElement.parentElement.querySelector("#productId").value
 
-        let itemInfo = {
-            productIdValue: productId,
-        };
+            let itemInfo = {
+                productIdValue: productId,
+            };
 
-        let response = await fetch('/cart/remove_fetch/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-          },
-          body: JSON.stringify(itemInfo),
-        });
+            let response = await fetch('/cart/remove_fetch/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8',
+                },
+                body: JSON.stringify(itemInfo),
+            });
         }
 
-    async function removeItem(event){
-        await removeItemFetch(event);
-        afterRemoveItem(event.target.parentElement.parentElement)
-        setTimeout(updatePrice.bind(null, event), 2000);
-    }
+        async function removeItem(event) {
+            await removeItemFetch(event);
+            afterRemoveItem(event.target.parentElement.parentElement)
+            setTimeout(updatePrice.bind(null, event), 2000);
+        }
 
-    async function getCartLength(){
-        let response = await fetch('/cart/length/', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-          },
+        async function getCartLength() {
+            let response = await fetch('/cart/length/', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8',
+                },
 
-        });
-
-        let result = await response.json();
-        alert(result.cart_length);
-    };
-
-    function getTotalPriceCart(){
-        let itemPriceInputs = document.querySelectorAll("#itemPrice");
-        let totalPrice = 0;
-        itemPriceInputs.forEach((item, index)=>{
-            totalPrice += +item.textContent;
             });
-        let totalPriceCart = document.querySelector("#totalPriceCart");
-        totalPriceCart.textContent = totalPrice;
-        return totalPrice;
-    }
 
-    function getQuantityInCart(){
-        let cartLengthHeader = document.querySelector("#cartLengthHeader")
-        let quantityInputs = document.querySelectorAll("#prod_quantity");
-        let allQuantity = 0;
-        quantityInputs.forEach((item,index)=>{
-            allQuantity += +item.value;
-        });
-        let cartLength = document.querySelector("#cartLength");
-        cartLength.textContent = allQuantity;
-        cartLengthHeader.textContent = allQuantity;
-        return allQuantity;
-    }
-
-    function updatePrice(event){
-        let quantity = event.target.value;
-        let itemPrice = event.target.parentElement.parentElement.querySelector("#itemPrice")
-        let productPrice = event.target.parentElement.parentElement.querySelector("#productPrice").textContent
-        productPrice = Number(productPrice.replace(",","."))
-
-        let newItemPrice = productPrice * quantity;
-        itemPrice.textContent = newItemPrice;
-        getQuantityInCart();
-        getTotalPriceCart();
-
-    };
-
-    function afterRemoveItem(item){
-        item.remove()
-    }
-
-    async function saveCartInSession(event){
-        let productId = event.target.parentElement.parentElement.querySelector("#productId").value
-        let quantity = event.target.value;
-
-        let cartInfo = {
-            productIdValue: productId,
-            quantityValue: quantity,
-            totalQuantity: getQuantityInCart(),
-            totalPrice: getTotalPriceCart(),
+            let result = await response.json();
+            alert(result.cart_length);
         };
 
-        let response = await fetch('/cart/update_cart_session/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-          },
-          body: JSON.stringify(cartInfo),
-        });
+        function getTotalPriceCart() {
+            let itemPriceInputs = document.querySelectorAll("#itemPrice");
+            let totalPrice = 0;
+            itemPriceInputs.forEach((item, index) => {
+                totalPrice += +item.textContent;
+            });
+            let totalPriceCart = document.querySelector("#totalPriceCart");
+            totalPriceCart.textContent = totalPrice;
+            return totalPrice;
+        }
 
-    let result = await response.json();
-    };
+        function getQuantityInCart() {
+            let cartLengthHeader = document.querySelector("#cartLengthHeader")
+            let quantityInputs = document.querySelectorAll("#prod_quantity");
+            let allQuantity = 0;
+            quantityInputs.forEach((item, index) => {
+                allQuantity += +item.value;
+            });
+            let cartLength = document.querySelector("#cartLength");
+            cartLength.textContent = allQuantity;
+            cartLengthHeader.textContent = allQuantity;
+            return allQuantity;
+        }
 
-    const quantityInput = document.querySelectorAll("#prod_quantity")
-    quantityInput.forEach((item)=>{item.addEventListener('change', updatePrice)})
-    quantityInput.forEach((item)=>{item.addEventListener('change', saveCartInSession)})
+        function updatePrice(event) {
+            let quantity = event.target.value;
+            let itemPrice = event.target.parentElement.parentElement.querySelector("#itemPrice")
+            let productPrice = event.target.parentElement.parentElement.querySelector("#productPrice").textContent
+            productPrice = Number(productPrice.replace(",", "."))
 
-    const newOrderBtn = document.querySelector("#newOrder")
-    newOrderBtn.addEventListener('click', getCartLength)
+            let newItemPrice = productPrice * quantity;
+            itemPrice.textContent = newItemPrice;
+            getQuantityInCart();
+            getTotalPriceCart();
+
+        };
+
+        function afterRemoveItem(item) {
+            item.remove()
+        }
+
+        async function saveCartInSession(event) {
+            let productId = event.target.parentElement.parentElement.querySelector("#productId").value
+            let quantity = event.target.value;
+
+            let cartInfo = {
+                productIdValue: productId,
+                quantityValue: quantity,
+                totalQuantity: getQuantityInCart(),
+                totalPrice: getTotalPriceCart(),
+            };
+
+            let response = await fetch('/cart/update_cart_session/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8',
+                },
+                body: JSON.stringify(cartInfo),
+            });
+
+            let result = await response.json();
+        };
+
+        const quantityInput = document.querySelectorAll("#prod_quantity")
+        quantityInput.forEach((item) => {
+            item.addEventListener('change', updatePrice)
+        })
+        quantityInput.forEach((item) => {
+            item.addEventListener('change', saveCartInSession)
+        })
+
+        const newOrderBtn = document.querySelector("#newOrder")
+        newOrderBtn.addEventListener('click', getCartLength)
 
 
-    const itemsRemove = document.querySelectorAll(".removeFetch")
-    itemsRemove.forEach((item)=>{item.addEventListener('click', removeItem)})
+        const itemsRemove = document.querySelectorAll(".removeFetch")
+        itemsRemove.forEach((item) => {
+            item.addEventListener('click', removeItem)
+        })
 
-</script>
+    </script>
 
 {% endblock content %}

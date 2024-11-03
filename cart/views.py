@@ -62,7 +62,6 @@ class Cart:
         for product in products:
             cart[str(product.id)]['product'] = product
 
-
         for item in cart.values():
             item['price'] = Decimal(item['price'])
             item['total_price'] = item['price'] * item['quantity']
@@ -78,9 +77,11 @@ def cart_add(request, slug):
 
     return redirect('products')
 
+
 def cart_detail(request):
     cart = Cart(request)
     return render(request, template_name='cart/cart_detail.html', context={'cart': cart})
+
 
 def remove_product(request, product_id):
     cart = Cart(request)
@@ -88,6 +89,7 @@ def remove_product(request, product_id):
     cart.remove(product)
 
     return redirect("cart_detail")
+
 
 @csrf_exempt
 def update_cart_by_front(request):
@@ -108,3 +110,20 @@ def update_cart_by_front(request):
         response_data = {'result': 'failed'}
 
     return JsonResponse(response_data)
+
+
+@csrf_exempt
+def remove_product_ajax(request):
+    cart = Cart(request)
+    data = json.loads(request.body)
+    product_id = data.get('productIdValue')
+    product = get_object_or_404(Product, pk=product_id)
+    cart.remove(product)
+    response_data = {'result': 'success'}
+    return JsonResponse(response_data)
+
+
+def remove_cart(request):
+    cart = Cart(request)
+    cart.clear()
+    return redirect("cart_detail")
