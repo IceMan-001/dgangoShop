@@ -77,11 +77,11 @@ class ProductCartUser:
     def __init__(self, request):
         # получаем текущего пользователя
         self.user = request.user
-        # получаем корзину текущего пользователя или создаем новую
+        # получаем корзину польз-ля из БД или создаем НОВУЮ
         self.user_cart, created = CartUser.objects.get_or_create(user=self.user)
-
+        # получаем позиции товаров в корзине
         products_in_cart = CartItem.objects.filter(cart=self.user_cart)
-        # создаем промежуточный объект для хранения товаров
+        # создаем объект для хранения товаров
         self.cart = {}
 
         for item in products_in_cart:
@@ -95,6 +95,7 @@ class ProductCartUser:
                 'quantity': 0,
                 'price': str(product.price)
             }
+
         if override_quantity:
             self.cart[product_id]['quantity'] = quantity
         else:
@@ -106,21 +107,20 @@ class ProductCartUser:
     def save(self):
         for prod_id in self.cart:
             product = Product.objects.get(pk=prod_id)
-            # проверяем наличие товаров в БД
-            # если есть - обновляем количество
+            # проверяем наличие товара в БД
+            # если есть - обновляем кол-во
             if CartItem.objects.filter(cart=self.user_cart, product=product).exists():
-                item = CartItem.object.get(cart=self.user, product=product)
+                item = CartItem.objects.get(cart=self.user_cart, product=product)
                 item.quantity = self.cart[prod_id]['quantity']
                 item.save()
             # иначе - создаем новую позицию
             else:
                 CartItem.objects.create(cart=self.user_cart, product=product, quantity=self.cart[prod_id]['quantity'])
 
-    #  метод удаления из корзины
     def remove(self, product_id, request):
         product = Product.objects.get(pk=product_id)
-        cart_user = CartUser.object.get(user=request.user)
-        cart_item = CartItem.object.get(cart=cart_user, product=product)
+        cart_user = CartUser.objects.get(user=request.user)
+        cart_item = CartItem.objects.get(cart=cart_user, product=product)
         cart_item.delete()
 
     def __iter__(self):
@@ -136,11 +136,11 @@ class ProductCartUser:
             item['total_price'] = item['price'] * item['quantity']
             yield item
 
-    def __len__(self):  # метод подсчета количества элементов в корзине
-        return sum(item['quantity'] for item in self.cart.values())
-
-    def get_total_price(self):  #
+    def get_total_price(self):
         return sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values())
+
+    def __len__(self):
+        return sum(item['quantity'] for item in self.cart.values())
 
 
 def cart_add(request, slug):
@@ -150,7 +150,7 @@ def cart_add(request, slug):
         cart = ProductCartUser(request)
     else:
         cart = Cart(request)
-
+    print(cart.__dict__)
     cart.add(product=product)
     return redirect('products')
 

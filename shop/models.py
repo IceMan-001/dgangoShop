@@ -60,5 +60,7 @@ class Product(models.Model):
         self.slug = slug  #  slug = f"{slug_name}-{self.pk}" можно сразу присвоить без промежуточного значения
         super().save(*args, **kwargs)  # еще раз выполняется метод сохранения как update
 
+
+
     def get_absolut_url(self):
         return reverse('product_detail', kwargs={'slug': self.slug})
