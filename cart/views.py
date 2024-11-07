@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 
 from website_shop.settings import CART_SESSION_ID
-from .models import CardUser, CardItem
+from .models import CartUser, CartItem
 
 
 class Cart:
@@ -78,14 +78,14 @@ class ProductCartUser:
         # получаем текущего пользователя
         self.user = request.user
         # получаем корзину текущего пользователя или создаем новую
-        self.user_cart, created = CardUser.objects.get_or_create(user=self.user)
+        self.user_cart, created = CartUser.objects.get_or_create(user=self.user)
 
-        products_in_cart = CardItem.objects.filter(cart=self.user_cart)
+        products_in_cart = CartItem.objects.filter(cart=self.user_cart)
         # создаем промежуточный объект для хранения товаров
         self.cart = {}
 
         for item in products_in_cart:
-            self.cart[str(item.product.id)] = {'quantity': item.quantity, 'price': item.product.pricce}
+            self.cart[str(item.product.id)] = {'quantity': item.quantity, 'price': item.product.price}
 
     def add(self, product, quantity=1, override_quantity=False):
         product_id = str(product.id)
@@ -108,19 +108,19 @@ class ProductCartUser:
             product = Product.objects.get(pk=prod_id)
             # проверяем наличие товаров в БД
             # если есть - обновляем количество
-            if CardItem.objects.filter(cart=self.user_cart, product=product).exists():
-                item = CardItem.object.get(cart=self.user, product=product)
+            if CartItem.objects.filter(cart=self.user_cart, product=product).exists():
+                item = CartItem.object.get(cart=self.user, product=product)
                 item.quantity = self.cart[prod_id]['quantity']
                 item.save()
             # иначе - создаем новую позицию
             else:
-                CardItem.objects.create(cart=self.user_cart, product=product, quantity=self.cart[prod_id]['quantity'])
+                CartItem.objects.create(cart=self.user_cart, product=product, quantity=self.cart[prod_id]['quantity'])
 
     #  метод удаления из корзины
     def remove(self, product_id, request):
         product = Product.objects.get(pk=product_id)
-        cart_user = CardUser.object.get(user=request.user)
-        cart_item = CardItem.object.get(cart=cart_user, product=product)
+        cart_user = CartUser.object.get(user=request.user)
+        cart_item = CartItem.object.get(cart=cart_user, product=product)
         cart_item.delete()
 
     def __iter__(self):

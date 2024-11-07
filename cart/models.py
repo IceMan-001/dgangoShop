@@ -5,12 +5,12 @@ from shop.models import Product
 User = get_user_model()
 
 
-class CardUser(models.Model):
+class CartUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
 
-class CardItem(models.Model):
-    card = models.ForeignKey(CardUser, on_delete=models.CASCADE)
+class CartItem(models.Model):
+    cart = models.ForeignKey(CartUser, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.ImageField()
     created = models.DateTimeField(auto_now_add=True)
