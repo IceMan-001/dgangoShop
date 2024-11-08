@@ -12,7 +12,7 @@ class CartUser(models.Model):
 class CartItem(models.Model):
     cart = models.ForeignKey(CartUser, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.ImageField()
+    quantity = models.IntegerField()
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:

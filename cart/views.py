@@ -150,7 +150,7 @@ def cart_add(request, slug):
         cart = ProductCartUser(request)
     else:
         cart = Cart(request)
-    print(cart.__dict__)
+
     cart.add(product=product)
     return redirect('products')
 

@@ -28,6 +28,7 @@ urlpatterns = [
     path('cart/', include('cart.urls')),
     path('about/', about, name='about'),
     path('contact/', contact, name='contact'),
+    path('orders/', include('orders.urls')),
 
     path('users/', include('users.urls', namespace="users")), # include() -> группировала маршрутов, относящихся к одной категории
 ]
