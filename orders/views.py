@@ -6,14 +6,10 @@ from django.http import JsonResponse
 from cart.views import Cart
 
 
-
 @csrf_exempt
 def new_quick_order(request):
-    data = json.loads((request.body))
+    data = json.loads(request.body)
 
     response = {"status": "ok"}
 
     return JsonResponse(response)
-
-
-
