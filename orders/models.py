@@ -22,6 +22,7 @@ class Order(models.Model):
     def __str__(self):
         return " ".join(['order_', self.number])
 
+
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="order_items")
     product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL)

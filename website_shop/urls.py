@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 from shop.views import AdminTemplateView, ProductCreateView, ProductListView, about, contact
 
 urlpatterns = [
-    path('', ProductListView.as_view()),  # корень сайта
+    path('', ProductListView.as_view(), name='main'),  # корень сайта
     path('staff/', AdminTemplateView.as_view(), name='admin-page'),
     path('admin/', admin.site.urls),
     path('product/', include('shop.urls')),

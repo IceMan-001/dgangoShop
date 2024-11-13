@@ -33,3 +33,4 @@ urlpatterns = [
     path('categories/<slug:slug>/', CategoryDetailView.as_view(), name='category_detail'),
 
 ]
+
