@@ -1,5 +1,3 @@
-
-
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .forms import LoginUserForm, RegisterUserForm, ProfileUserForm
@@ -33,7 +31,11 @@ class RegisterUser(CreateView):
     form_class = RegisterUserForm
     template_name = 'users/register.html'
     extra_context = {'title': "Регистрация"}
-    success_url = reverse_lazy('users:login')
+    success_url = reverse_lazy('users:register_user_done')
+
+
+def register_user_done(request):
+    return render(request, 'users/register_done.html')
 
 
 class ProfileUser(LoginRequiredMixin, UpdateView):
