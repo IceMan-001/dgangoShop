@@ -1,0 +1,16 @@
+{% extends 'base_secondary.html' %}
+{% load static %}
+
+{% block content %}
+<div class="orders">
+    {% for order in orders %}
+        <div class="order-item ">
+            <div class="order-number">{{order.number}}</div>
+            <div class="order-payment">{{order.order-payment}}</div>
+            <div class="order-delivery">{{order.order-delivery}}</div>
+            <div class="order-data">{{order.created_at}}</div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}

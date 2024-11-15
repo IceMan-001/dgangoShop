@@ -61,7 +61,7 @@
                 {% if not request.user.id %}
                     <a href="#" class="button-style-order" id="newOrder">Оформить не авторизованный пользователь</a>
                 {% else %}
-                    <a href="{% url 'new_order' %}" class="button-style-order" id="newOrderUser">Оформить авторизованный
+                    <a href="{% url 'orders:new_order' %}" class="button-style-order" id="newOrderUser">Оформить авторизованный
                         пользователь</a>
                 {% endif %}
                 <a href="{% url 'remove_cart_backend' %}" class="button-style-clear">Очистить корзину</a>
@@ -83,7 +83,7 @@
             <div class="modal-content__order-form">
                 <span id="closeOrderForm" class="close">&times;</span>
 
-                <h4>Заполните информацию для заказе</h4>
+                <h4>Заполните информацию для заказа</h4>
                 <form action="#" method="post">
                     {{ quick_order_form.as_p }}
                     {% csrf_token %}

@@ -13,6 +13,10 @@ class QuickOrderForms(forms.Form):
 
 
 class OrderForm(forms.ModelForm):
+    payment = forms.ChoiceField(choices=PAYMENT_CHOISES, label="Способ оплаты")
+    delivery = forms.ChoiceField(choices=DELIVERY_CHOISES, label="Способ оплаты")
     class Meta:
         model = Order
-        exclude = ('name', 'last_name', 'email', 'phone')
+        exclude = ('name', 'last_name', 'email', 'phone', 'address')
+
+
