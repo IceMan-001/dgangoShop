@@ -2,61 +2,56 @@
 {% load static %}
 
 {% block title %}
+    <title>Оформление заказа</title>
 {% endblock title %}
 
 {% block content %}
-<table class="table" style="text-align: center;">
-    <thead>
-    <tr>
-        <th>Товарный номер</th>
-        <th>Изображение</th>
-        <th>Наименование</th>
-        <th>Цена</th>
-        <th>Количество</th>
-        <th>Стоимость</th>
-        <th>Действие</th>
-    </tr>
-    </thead>
-    {% for item in cart %}
-    {% with product=item.product %}
-    <input type="hidden" value="{{ product.id }}" id="productId">
-    <tr>
-        <td>
-            <!--              forloop.counter статичная переменная стартует с 1, работает в цикле-->
-            {{ forloop.counter }}
-        </td>
-        <td>
-            {{ product.name }}
-        </td>
-        <td>
-            <!--                |floatformat:0 - фильтр убрать знаки после запятой 0 количество точек после 0-->
-            <span id="productPrice">{{ product.price|floatformat:0 }}</span> руб.
-        </td>
-        <td>
-            {{ item.quantity }}
-        </td>
-        <td>
-            <span id="itemPrice">{{ item.total_price|floatformat:0 }}</span> руб.
-        </td>
-        <td>
-            <a href="{% url 'remove_product' product.id %}" class="close">
-                <img src="{% static 'image/cart_delete.png' %}" style="width:30px; height:30px;">
-            </a>
-        </td>
-    </tr>
-    {% endwith %}
-    {% endfor %}
-</table>
-<div style="width:80%; text-align:justify; margin:0 auto; padding-top:50px">
-    <div>Товаров в заказе: <span id="cartLength">{{ cart|length }}</span></div>
-    <div>Заказов на сумму: <span id="totalPriceCart">{{ cart.get_total_price|floatformat:0 }}</span> руб.
+    <table class="table" style="text-align: center;">
+        <thead>
+        <tr>
+            <th>Номер по списку</th>
+            <th>Наименование</th>
+            <th>Цена за единицу</th>
+            <th>Количество</th>
+            <th>Общая стоимость</th>
+        </tr>
+        </thead>
+        {% for item in cart %}
+            {% with product=item.product %}
+                <input type="hidden" value="{{ product.id }}" id="productId">
+                <tr>
+                    <td>
+                        {{ forloop.counter }}
+                    </td>
+                    <td>
+                        {{ product.name }}
+                    </td>
+                    <td>
+                        <span id="productPrice">{{ product.price|floatformat:2 }}</span> руб.
+                    </td>
+                    <td>
+                        {{ item.quantity }}
+                    </td>
+                    <td>
+                        <span id="itemPrice">{{ item.total_price|floatformat:2 }}</span> руб.
+                    </td>
+                </tr>
+            {% endwith %}
+        {% endfor %}
+    </table>
+    <div style="width:80%; text-align:justify; margin:0 auto; padding-top:50px">
+        <div>
+            Товаров в заказе: <span id="cartLength">{{ cart|length }}</span>
+        </div>
+        <div>
+            Заказов на сумму: <span id="totalPriceCart">{{ cart.get_total_price|floatformat:0 }}</span> руб.
+        </div>
+
+        <form action="{% url 'orders:new_order' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Подтвердите заказ</button>
+        </form>
     </div>
 
-    <form action="{% url 'orders:new_order' %}" method="post">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit">Оформить</button>
-    </form>
-
-
-    {% endblock content %}
+{% endblock content %}

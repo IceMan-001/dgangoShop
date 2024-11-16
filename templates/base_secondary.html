@@ -57,6 +57,9 @@
             {% else %}
             <li class="first"><a href="{% url 'cart_detail' %}" target="_self">Корзина</a></li>
             {% endif %}
+
+        <li class="first"><a href="{% url 'orders:orders' %}" target="_self">Заказы</a></li>
+
         </ul>
         <div class="search">
             <form action="{% url 'product_search' %}" method="get" style="margin-top:10px; margin-left:40px">

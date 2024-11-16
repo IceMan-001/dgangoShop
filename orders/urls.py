@@ -8,5 +8,5 @@ urlpatterns = [
     path('newOrder/', new_order, name="new_order"),
     path('new/', new_order_ajax, name="new_order_ajax"),
     path('list/', orders_list, name="orders"),
-    path('detail/', order_detail, name="order_detail"),
+    path('detail/<str:number>', order_detail, name="order_detail"),
 ]

@@ -60,11 +60,10 @@ def new_order(request):
         context = {"form": order_form}
         return render(request, template_name='orders/order_add.html', context=context)
 
-
     if request.method == "POST":
         order_form = OrderForm(request.POST)
         if order_form.is_valid():
-            order =  order_form.save(commit=False)
+            order = order_form.save(commit=False)
             order.number = uuid.uuid4()
             order.user = request.user
             order.cart = cart.user_cart
@@ -91,8 +90,10 @@ def orders_list(request):
 
     return render(request, template_name='orders/orders.html', context=context)
 
-def order_detail(request):
-    order = get_object_or_404(Order, number=number, user=)
+
+@login_required
+def order_detail(request, number):
+    order = get_object_or_404(Order, number=number, user=request.user)
     context = {"order": order}
 
-    return
+    return render(request, template_name='orders/order_detail.html', context=context)
