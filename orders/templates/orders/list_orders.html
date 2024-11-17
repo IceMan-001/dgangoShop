@@ -1,0 +1,25 @@
+{% extends 'base_admin.html' %}
+{% load static %}
+
+{% block content %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Номер п/п</th>
+            <th>Заказчик</th>
+            <th>Номер заказа</th>
+            <th>Дата создания</th>
+        </tr>
+        </thead>
+        {% for order in orders %}
+            <tbody>
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><a href="{% url 'orders:list_orders_user' %}">{{ order.user }}</a></td>
+                <td><a href="{% url 'orders:order_detail' order.number %}">{{ order.number }}</a></td>
+                <td>{{ order.created_at }}</td>
+            </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+{% endblock content %}

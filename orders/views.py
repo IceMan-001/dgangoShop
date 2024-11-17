@@ -10,6 +10,8 @@ from cart.views import Cart, ProductCartUser
 from .forms import OrderForm
 from .models import Order, OrderItem
 
+from django.views.generic import ListView
+
 
 @csrf_exempt
 def new_quick_order(request):
@@ -97,3 +99,16 @@ def order_detail(request, number):
     context = {"order": order}
 
     return render(request, template_name='orders/order_detail.html', context=context)
+
+
+def order_user(request):
+    orders = Order.objects.filter(user=request.user)
+    context = {"orders": orders}
+
+    return render(request, template_name='orders/order_user.html', context=context)
+
+
+class ListOrdersView(ListView):
+    model = Order
+    template_name = 'orders/list_orders.html'
+    context_object_name = 'orders'
