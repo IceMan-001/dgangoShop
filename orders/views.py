@@ -1,3 +1,5 @@
+from idlelib.rpc import request_queue
+
 from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render, reverse, get_object_or_404
@@ -108,7 +110,8 @@ def order_user(request):
     return render(request, template_name='orders/order_user.html', context=context)
 
 
-class ListOrdersView(ListView):
+class ListOrdersViewTotal(ListView):  # Получение всех заказов на странице администрирования
     model = Order
-    template_name = 'orders/list_orders.html'
+    template_name = 'orders/list_orders_total.html'
     context_object_name = 'orders'
+

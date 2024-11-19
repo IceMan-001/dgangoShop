@@ -8,6 +8,8 @@ from .forms import CategoryCreateForm, ProductCreateForm
 
 from django.db.models import Q
 
+from django.views.generic.list import MultipleObjectMixin
+
 
 class AdminTemplateView(TemplateView):  # Админская страница
     template_name = 'shop/admin.html'
@@ -35,6 +37,7 @@ class ListCategoriesView(ListView):
 
 class ProductListView(TemplateView):
     template_name = 'shop/home.html'
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
