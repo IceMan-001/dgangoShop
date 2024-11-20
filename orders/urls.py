@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import new_quick_order, new_order, new_order_ajax, orders_list, order_detail, ListOrdersViewTotal, order_user
 
+
 app_name = 'orders'
 
 urlpatterns = [
@@ -11,4 +12,5 @@ urlpatterns = [
     path('detail/<str:number>/', order_detail, name="order_detail"),
     path('total-orders/', ListOrdersViewTotal.as_view(), name="list_orders_total"),
     path('user-orders/', order_user, name="list_orders_user"),
+    # path('user/orders/<int:pk>/', OrderDetailView.as_view(), name="orders_user_detail"),
 ]

@@ -12,7 +12,7 @@ from cart.views import Cart, ProductCartUser
 from .forms import OrderForm
 from .models import Order, OrderItem
 
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 
 @csrf_exempt
@@ -114,4 +114,11 @@ class ListOrdersViewTotal(ListView):  # Получение всех заказо
     model = Order
     template_name = 'orders/list_orders_total.html'
     context_object_name = 'orders'
+
+
+# class OrderDetailView(DetailView):
+#     model = Order
+#     template_name = 'orders/order_user.html'
+#     context_object_name = 'orders'
+#     slug_url_kwarg = 'pk'
 
