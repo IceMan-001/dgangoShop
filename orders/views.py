@@ -1,5 +1,3 @@
-from idlelib.rpc import request_queue
-
 from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render, reverse, get_object_or_404
@@ -7,12 +5,16 @@ import json
 import uuid
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-
+from django.contrib.auth import get_user_model
 from cart.views import Cart, ProductCartUser
 from .forms import OrderForm
 from .models import Order, OrderItem
+from django.core.exceptions import PermissionDenied
 
 from django.views.generic import ListView, DetailView
+
+user = get_user_model()
+admin = user.objects.get(username='staff')
 
 
 @csrf_exempt
@@ -97,15 +99,21 @@ def orders_list(request):
 
 @login_required
 def order_detail(request, number):
+
+    if request.user == admin:
+        order = get_object_or_404(Order, number=number)
+        context = {"order": order}
+        return render(request, template_name='orders/order_detail.html', context=context)
+
     order = get_object_or_404(Order, number=number, user=request.user)
     context = {"order": order}
-
     return render(request, template_name='orders/order_detail.html', context=context)
 
 
 def order_user(request):
     orders = Order.objects.filter(user=request.user)
-    context = {"orders": orders}
+    order_items = orders.order_items.all()
+    context = {"orders": orders, "order_items": order_items}
 
     return render(request, template_name='orders/order_user.html', context=context)
 
@@ -122,3 +130,12 @@ class ListOrdersViewTotal(ListView):  # Получение всех заказо
 #     context_object_name = 'orders'
 #     slug_url_kwarg = 'pk'
 
+
+def all_orders_list(request):
+    if request.user != admin:
+        raise PermissionDenied
+
+    orders = Order.object.all()
+    context = {'orders': orders}
+
+    return render(request, template_name='shop/list_orders_total.html', context=context)

@@ -69,4 +69,10 @@
 	</tbody>
 </table>
 
+{% for item in order_items %}
+<div class="item">
+	<div>{{item.product.name}}</div>
+	<div>{{item.quantity}}</div>
+</div>
+{% endfor %}
 {% endblock content %}
