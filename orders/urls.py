@@ -5,7 +5,7 @@ from .views import new_quick_order, new_order, new_order_ajax, orders_list, orde
 app_name = 'orders'
 
 urlpatterns = [
-    path('new/quick/', new_quick_order, name='new_quick_order'),   #анонимный юсер AJAX
+    path('new/quick/', new_quick_order, name='new_quick_order'),   # анонимный юзер AJAX
     path('newOrder/', new_order, name="new_order"),
     path('new/', new_order_ajax, name="new_order_ajax"),
     path('list/', orders_list, name="orders"),
