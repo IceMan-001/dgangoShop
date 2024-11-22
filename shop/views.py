@@ -1,3 +1,7 @@
+from itertools import product
+from lib2to3.fixes.fix_input import context
+from unicodedata import category
+
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import (ListView, CreateView,
                                   UpdateView, DetailView,
@@ -9,6 +13,7 @@ from .forms import CategoryCreateForm, ProductCreateForm
 from django.db.models import Q
 
 from django.views.generic.list import MultipleObjectMixin
+from .filters import ProductFilter
 
 
 class AdminTemplateView(TemplateView):  # Админская страница
@@ -35,17 +40,34 @@ class ListCategoriesView(ListView):
     context_object_name = 'categories'
 
 
-class ProductListView(TemplateView):
+
+class ProductListView(ListView):
+    model = Product
     template_name = 'shop/home.html'
+
+    slug_url_kwarg = 'slug'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         categories = Category.objects.all()
         products = Product.objects.all()
         context['categories'] = categories
+        context['filterset'] = self.filterset
         context['products'] = products
 
         return context
+
+    def get_queryset(self):
+        # Получаем категорию по slug из URL
+        if not self.kwargs.get('slug'):
+            queryset = Product.objects.all()
+            self.filterset = ProductFilter(self.request.GET, queryset=queryset)
+            return self.filterset.qs
+
+        category = get_object_or_404(Category, slug=self.kwargs['slug'])
+        queryset = Product.objects.filter(category=category)
+        self.filterset = ProductFilter(self.request.GET, queryset=queryset)
+        return self.filterset.qs
 
 
 class ProductDetailView(DetailView):
@@ -64,16 +86,21 @@ class ProductListByCategory(ListView):
         context = super().get_context_data(**kwargs)
         categories = Category.objects.all()
         context['categories'] = categories
+        context['filterset'] = self.filterset
 
         return context
 
     def get_queryset(self):
         # Получаем категорию по slug из URL
         if not self.kwargs.get('slug'):
-            return Product.object.all()
+            queryset = Product.objects.all()
+            self.filterset = ProductFilter(self.request.GET, queryset=queryset)
+            return self.filterset.qs
 
         category = get_object_or_404(Category, slug=self.kwargs['slug'])
-        return Product.objects.filter(category=category)
+        queryset = Product.objects.filter(category=category)
+        self.filterset = ProductFilter(self.request.GET, queryset=queryset)
+        return self.filterset.qs
 
 
 class ProductUpdateView(UpdateView):
@@ -173,3 +200,16 @@ def contact(request):
         'title': 'Страница контактов',
     }
     return render(request, template_name='shop/contact.html', context=context)
+
+
+# def product_list_view(request):
+#     categoryes = Category.objects.all()
+#     if slug:
+#         products_by_slug = get_object_or_404(Category, slug=slug)
+#
+#         category = Category.objects.all()
+#         queryset = Product.objects.all()
+#         filterset = ProductFilter(request.GET, queryset=queryset)
+#         context = {'products': filterset.qs, 'filterset': filterset, 'category': category}
+#
+#     return render(request, template_name='shop/home.html', context=context)
