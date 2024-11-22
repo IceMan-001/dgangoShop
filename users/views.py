@@ -9,16 +9,22 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from django.core.exceptions import PermissionDenied
+from django.contrib.auth import views as views_auth
 
 User = get_user_model()
+user = get_user_model()
+admin = user.objects.get(username='staff')
 
 
-class LoginUser(LoginView):
+class LoginUser(views_auth.LoginView):
     form_class = AuthenticationForm
     template_name = 'users/login.html'
     extra_context = {'title': "Авторизация"}
 
     def get_success_url(self):
+        if self.request.user == admin:
+            return reverse_lazy('admin-page')
+
         return reverse_lazy('products')
 
 
