@@ -22,6 +22,7 @@
         <thead>
         <tr>
             <th>Номер по списку</th>
+            <th>Заказчик</th>
             <th>Номер заказа</th>
             <th>Способ оплаты</th>
             <th>Способ доставки</th>
@@ -32,6 +33,9 @@
             <tr>
                 <td>
                     {{ forloop.counter }}
+                </td>
+                <td>
+                    {{ order.user }}
                 </td>
                 <td>
                     <a href="{% url 'orders:order_detail' order.number %}">{{ order.number }}</a>

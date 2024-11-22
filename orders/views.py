@@ -99,7 +99,6 @@ def orders_list(request):
 
 @login_required
 def order_detail(request, number):
-
     if request.user == admin:
         order = get_object_or_404(Order, number=number)
         context = {"order": order}
@@ -122,6 +121,7 @@ class ListOrdersViewTotal(ListView):  # Получение всех заказо
     model = Order
     template_name = 'orders/list_orders_total.html'
     context_object_name = 'orders'
+    pass
 
 
 # class OrderDetailView(DetailView):
@@ -139,3 +139,20 @@ def all_orders_list(request):
     context = {'orders': orders}
 
     return render(request, template_name='shop/list_orders_total.html', context=context)
+
+
+class ListOrdersTotalUser(ListView):
+    model = Order
+    template_name = 'orders/order_user.html'
+    context_object_name = 'orders'
+    extra_context = {
+        'title': 'Все заказы пользователей'
+    }
+
+    def get_queryset(self):
+        if self.request.user == admin:
+            return Order.objects.all()
+
+        return Order.objects.filter(user=self.request.user)
+
+

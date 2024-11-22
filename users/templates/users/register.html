@@ -1,4 +1,10 @@
-{% extends 'base_secondary.html' %}
+{% extends 'base_main.html' %}
+{% load static %}
+
+{% block title %}
+     <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock title %}
+
 
 {% block content %}
 <h1 style="display: flex; justify-content: center; align-items: center; margin-top: 50px;">Регистрация</h1>
@@ -36,6 +42,7 @@
             <div class="form-error">{{ f.errors }}</div>
             {% endfor %}
             <button type="submit">Регистрация</button>
+{#         <p class="message" id="messageB">Already registered? <a href="#">Sign In</a></p>#}
         </form>
     </div>
 </div>
