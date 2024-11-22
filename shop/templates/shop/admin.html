@@ -6,28 +6,26 @@
 
 {% block content %}
 
-    {{ total }}
     <div class="action-categories">
         <div class="actions">
             <div class="actions">
-                <a href="{% url 'category_add' %}">Добавить категорию</a>
+                <a href="{% url 'category_add' %}">1. Добавить категорию</a>
             </div>
             <div class="actions">
-                <a href="{% url 'categories' %}">Посмотреть все категории</a>
+                <a href="{% url 'categories' %}">2. Посмотреть все категории</a>
             </div>
         </div>
         <div class="action-product">
             <div class="actions">
-                <a href="{% url 'products_add' %}">Добавить товар</a>
+                <a href="{% url 'products_add' %}">3. Добавить товар</a>
             </div>
             <div class="actions">
-                <a href="{% url 'products' %}">Посмотреть все товары</a>
+                <a href="{% url 'products' %}">4. Посмотреть все товары</a>
             </div>
              <div class="actions">
-                <a href="{% url 'orders:list_orders_total' %}">Посмотреть все заказы</a>
+                <a href="{% url 'orders:list_orders_total' %}">5. Посмотреть все заказы</a>
             </div>
         </div>
     </div>
-
 
 {% endblock content %}
