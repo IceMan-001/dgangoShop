@@ -7,64 +7,65 @@
 {% endblock title %}
 
 {% block content %}
-<h2>Привет</h2>
-<div class="container">
-    <div class="filters">
-    <form method="get">
-        {{ filterset.form.as_p }}
-        <button type="submit">Фильтровать</button>
-    </form>
-</div>
-
+    <h2>Привет</h2>
     <div class="container">
-        <section>
-            <div class="category">
-                {% for product in products %}
-                <div class="product">
-                    <div class="image-placeholder image-placeholder5">
-                        {% if product.image %}
-                        <a href="{% url 'edit_product' product.id %}" class="card__image">
-                            <img
-                                    src="{{ product.image.url }}"
-                                    alt="Картинка"/>
-                        </a>
-                        {% endif %}
-                    </div>
-                    <h4>Название товара: {{product.name}}</h4>
-                    <p class="truncate">Описание: {{product.description}}</p>
-                    <p class="price">Цена: {{product.price}}</p>
-                    <p>Дата публикации: {{product.created}}</p>
-                    <div class="qyt">
-                        <label for="quantity_fruit1">
-                            Количество:
-                        </label>
-                        <input type="number"
-                               id="quantity_fruit1"
-                               value="1">
-                    </div>
-                    <div class="productbtns">
-                        <form class="form_style" action="{% url 'product_detail' product.slug %}" method="get"
-                              target="_self">
-                            <button type="submit">Подробнее</button>
-                        </form>
-                        {% if product.id|string_value in cart.cart %}
-                        <form class="form_style" action="{% url 'add_to_cart' product.slug %}" method="get"
-                              target="_self">
-                            <button type="submit">Добавлено {{cart|count_items:product.id|string_value}}</button>
-                        </form>
-                        {% else %}
+        <div class="filters">
+            <form method="get">
+                {{ filterset.form.as_p }}
+                <button type="submit">Фильтровать</button>
+            </form>
+        </div>
 
-                        <form class="form_style" action="{% url 'add_to_cart' product.slug %}" method="get"
-                              target="_self">
-                            <button type="submit">В корзину</button>
-                        </form>
-                        {% endif %}
-                    </div>
+        <div class="container">
+            <section>
+                <div class="category">
+                    {% for product in products %}
+                        <div class="product">
+                            <div class="image-placeholder image-placeholder5">
+                                {% if product.image %}
+                                    <a href="{% url 'edit_product' product.id %}" class="card__image">
+                                        <img
+                                                src="{{ product.image.url }}"
+                                                alt="Картинка"/>
+                                    </a>
+                                {% endif %}
+                            </div>
+                            <h4>Название товара: {{ product.name }}</h4>
+                            <p class="truncate">Описание: {{ product.description }}</p>
+                            <p class="price">Цена: {{ product.price }}</p>
+                            <p>Дата публикации: {{ product.created }}</p>
+                            <div class="qyt">
+                                <label for="quantity_fruit1">
+                                    Количество:
+                                </label>
+                                <input type="number"
+                                       id="quantity_fruit1"
+                                       value="1">
+                            </div>
+                            <div class="productbtns">
+                                <form class="form_style" action="{% url 'product_detail' product.slug %}" method="get"
+                                      target="_self">
+                                    <button type="submit">Подробнее</button>
+                                </form>
+                                {% if product.id|string_value in cart.cart %}
+                                    <form class="form_style" action="{% url 'add_to_cart' product.slug %}" method="get"
+                                          target="_self">
+                                        <button type="submit">
+                                            Добавлено {{ cart|count_items:product.id|string_value }}</button>
+                                    </form>
+                                {% else %}
+
+                                    <form class="form_style" action="{% url 'add_to_cart' product.slug %}" method="get"
+                                          target="_self">
+                                        <button type="submit">В корзину</button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
-            </div>
-        </section>
+            </section>
+        </div>
     </div>
-
-    {% endblock content %}
+{% endblock content %}
 

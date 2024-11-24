@@ -1,7 +1,3 @@
-from itertools import product
-from lib2to3.fixes.fix_input import context
-from unicodedata import category
-
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import (ListView, CreateView,
                                   UpdateView, DetailView,
@@ -40,11 +36,10 @@ class ListCategoriesView(ListView):
     context_object_name = 'categories'
 
 
-
 class ProductListView(ListView):
     model = Product
     template_name = 'shop/home.html'
-
+    paginate_by = 3
     slug_url_kwarg = 'slug'
 
     def get_context_data(self, **kwargs):
@@ -200,7 +195,6 @@ def contact(request):
         'title': 'Страница контактов',
     }
     return render(request, template_name='shop/contact.html', context=context)
-
 
 # def product_list_view(request):
 #     categoryes = Category.objects.all()

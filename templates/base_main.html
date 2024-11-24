@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     {% block title %}
-    <title>{{title}}</title>
+        <title>{{ title }}</title>
     {% endblock title %}
     <link rel="stylesheet" href="{% static 'css/styles_main.css' %}">
     <link rel="stylesheet" href="{% static 'css/cart_detail.css' %}">
@@ -14,64 +14,74 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=WindSong:wght@400;500&display=swap" rel="stylesheet">
+
 </head>
 <body>
 {% block header %}
-<header>
-    <div class="logo">
+    <header>
+        <div class="logo">
                 <span class="windsong-medium">
                     <p>My_Shop</p>
                 </span>
-    </div>
-    <div class="menu-nav">
-        <ul>
-            <li class="first"><a href="{% url 'products' %}" target="_self">Главная</a></li>
-            <li><a href="#">Категории товаров</a>
-                <ul>
-                    {% for category in categories %}
-                    <li><a href="{% url 'products_by_category' category.slug %}">{{ category.name }}</a></li>
-                    {% endfor %}
-                </ul>
-            </li>
-            <li><a href="#">Аккаунт</a>
-<!--                {% if user.is_staff %}-->
-<!--                <ul>-->
-<!--                    <li><a href="{% url 'users:profile_list' %}">Пользователь: <i>{{user.username}}</i></a></li>-->
-<!--                    <li><a href="{% url 'admin-page' %}">Администрирование</a></li>-->
-<!--                    <li><a href="{% url 'users:logout' %}">Выйти</a></li>-->
-<!--                </ul>-->
-<!--                {% endif %}-->
-                {% if not user.is_authenticated %}
-                <ul>
-                    <li><a href="{% url 'users:login' %}">Войти</a></li>
-                    <li><a href="{% url 'users:register' %}">Регистрация</a></li>
-                </ul>
-                {% endif %}
-                {% if user.is_authenticated %}
-                <ul>
-                    <li><a href="{% url 'users:profile_list' %}">Пользователь: <i>{{ user.username }}</i></a></li>
-                    <li><a href="{% url 'users:logout' %}">Выйти</a></li>
-                </ul>
-                {% endif %}
-            </li>
-            <li><a href="{% url 'about' %}">О Сайте</a></li>
-            <li><a href="{% url 'contact' %}">Контакты</a></li>
-            {% if cart|length != 0 %}
-            <li class="first"><a href="{% url 'cart_detail' %}" target="_self">Корзина (<span
-                    id="cartLengthHeader">{{ cart|length }}</span>)</a></li>
-            {% else %}
-            <li class="first"><a href="{% url 'cart_detail' %}" target="_self">Корзина</a></li>
-            {% endif %}
-            <li class="first"><a href="{% url 'orders:orders' %}" target="_self">Заказы</a></li>
-        </ul>
-        <div class="search">
-            <form action="{% url 'product_search' %}" method="get" style="margin-top:10px; margin-left:40px">
-                <input type="search" name="query" placeholder="Search products...">
-                <button type="submit">Поиск</button>
-            </form>
         </div>
-    </div>
-</header>
+        <div class="menu-nav">
+            <ul>
+                <li class="first"><a href="{% url 'products' %}" target="_self">Главная</a></li>
+                <li class="first"><a href="#">Категории товаров</a>
+                    <ul>
+                        {% for category in categories %}
+                            <li><a href="{% url 'products_by_category' category.slug %}">{{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li class="first"><a href="#">Аккаунт</a>
+                    {% if user.is_staff %}
+                        <ul>
+                            <li><a href="{% url 'users:profile_list' %}">Пользователь: <i>{{ user.username }}</i></a>
+                            </li>
+                            <li><a href="{% url 'admin-page' %}">Администрирование</a></li>
+                            <li><a href="{% url 'users:logout' %}">Выйти</a></li>
+                        </ul>
+                    {% endif %}
+                    {% if not user.is_authenticated %}
+                        <ul>
+                            <li><a href="{% url 'users:login' %}">Войти</a></li>
+                            <li><a href="{% url 'users:register' %}">Регистрация</a></li>
+                        </ul>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                        <ul>
+                            <li><a href="{% url 'users:profile_list' %}">Пользователь: <i>{{ user.username }}</i></a>
+                            </li>
+                            <li><a href="{% url 'users:profile' %}">Редактировать профиль: <i>{{ user.username }}</i></a>
+                            </li>
+                            <li><a href="{% url 'users:logout' %}">Выйти</a></li>
+                        </ul>
+                    {% endif %}
+                </li>
+                <li class="first"><a href="{% url 'about' %}">О Сайте</a></li>
+                <li class="first"><a href="{% url 'contact' %}">Контакты</a></li>
+                {% if cart|length != 0 %}
+                    <li class="first"><a href="{% url 'cart_detail' %}" target="_self">Корзина (<span
+                            id="cartLengthHeader">{{ cart|length }}</span>)</a></li>
+                {% else %}
+                    <li class="first"><a href="{% url 'cart_detail' %}" target="_self">Корзина</a></li>
+                {% endif %}
+                <li class="first"><a href="{% url 'orders:orders' %}" target="_self">Заказы</a></li>
+             {% if user.is_authenticated %}
+             <li class="first"><a href="{% url 'users:profile_list' %}">Вы авторизованы как: <i>{{ user.username }}</i></a></li>
+             {% endif %}
+            </ul>
+
+            <div class="search">
+
+                <form action="{% url 'product_search' %}" method="get" style="margin-top:10px; margin-left:40px">
+                    <input type="search" name="query" placeholder="Search products...">
+                    <button type="submit">Поиск</button>
+                </form>
+            </div>
+        </div>
+    </header>
 {% endblock header %}
 
 {% block main %}
@@ -80,12 +90,33 @@
 {% block content %}
 {% endblock content %}
 
+
+<div class="example1-pagination">
+        {% if page_obj.has_previous %}
+            <a class="example1-pagination_link" href="?page=1">&laquo; первая</a>
+            <a class="example1-pagination_link" href="?page={{ page_obj.previous_page_number }}">предыдущая</a>
+        {% endif %}
+
+        <span class="example1-pagination_link example1-pagination_link__active">
+            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a class="example1-pagination_link" href="?page={{ page_obj.next_page_number }}">следующая</a>
+            <a class="example1-pagination_link" href="?page={{ page_obj.paginator.num_pages }}">последняя &raquo;</a>
+        {% endif %}
+    </div>
+</div>
+
+
+
+
 {% block footer %}
-<footer>
-    <p class="windsong-medium">&copy; 2024 Andrey Bobrov.
-        All rights reserved.
-    </p>
-</footer>
+    <footer>
+        <p class="windsong-medium">&copy; 2024 Andrey Bobrov.
+            All rights reserved.
+        </p>
+    </footer>
 {% endblock footer %}
 
 <script src="{% static 'js/login.js' %}"></script>
