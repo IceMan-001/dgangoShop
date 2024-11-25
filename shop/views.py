@@ -3,6 +3,8 @@ from django.views.generic import (ListView, CreateView,
                                   UpdateView, DetailView,
                                   DeleteView, TemplateView)
 from django.urls import reverse_lazy
+from unicodedata import category
+
 from .models import Product, Category
 from .forms import CategoryCreateForm, ProductCreateForm
 
@@ -185,14 +187,18 @@ def contact(request):
     }
     return render(request, template_name='shop/contact.html', context=context)
 
-# def product_list_view(request):
-#     categoryes = Category.objects.all()
-#     if slug:
-#         products_by_slug = get_object_or_404(Category, slug=slug)
-#
-#         category = Category.objects.all()
-#         queryset = Product.objects.all()
-#         filterset = ProductFilter(request.GET, queryset=queryset)
-#         context = {'products': filterset.qs, 'filterset': filterset, 'category': category}
-#
-#     return render(request, template_name='shop/home.html', context=context)
+
+def product_list_view(request, slug):
+    categories = Category.objects.all()
+    if slug:
+        category = get_object_or_404(Category, slug=slug)
+        products_by_slug = Product.objects.filter(category=category)
+        filterset = ProductFilter(request.GET, queryset=products_by_slug)
+        context = {'products': filterset.qs, 'filterset': filterset, 'categories': categories}
+        return render(request, template_name='shop/product_by_category.html', context=context)
+
+
+    queryset = Product.objects.all()
+    filterset = ProductFilter(request.GET, queryset=queryset)
+    context = {'products': filterset.qs, 'filterset': filterset, 'categories': categories}
+    return render(request, template_name='shop/product_by_category.html', context=context)

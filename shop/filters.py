@@ -13,11 +13,13 @@ class ProductFilter(django_filters.FilterSet):
     name = django_filters.CharFilter(field_name='name', lookup_expr='icontains', label='Название товара')
     price_min = django_filters.NumberFilter(field_name='price', lookup_expr='gte', label='Минимальная цена')
     price_max = django_filters.NumberFilter(field_name='price', lookup_expr='lte', label='Максимальная цена')
-    available = django_filters.BooleanFilter(field_name='available', label="Наличие", widget=RadioSelect())
+    available = django_filters.BooleanFilter(field_name='available', label="Наличии",
+                                             widget=RadioSelect(attrs={'class': 'form-control'},
+                                                                choices=available_choices))
 
     class Meta:
         model = Product
-        fields = ['name']
+        fields = []
 
 
 # class ProductFilter_(django_filters.FilterSet):

@@ -9,10 +9,12 @@ from .views import (ProductListView, CategoryCreateView,
                     CategoryUpdateView, CategoryDeleteView,
                     ProductDeleteView, ProductListByCategory,
                     ProductDetailView)
-from .views import product_search
+from .views import product_search, product_list_view
 
 # my_site/product/products/
 urlpatterns = [
+    path('categories/<slug:slug>/products/test/', product_list_view, name="test"),
+
     path('search/', product_search, name="product_search"),
     path('products/', ProductListView.as_view(), name='products'),
     path('products/add/', ProductCreateView.as_view(), name='products_add'),
