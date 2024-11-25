@@ -71,7 +71,7 @@
             <tr>
                 <td>{{ forloop.counter }}</td>
                 <td><a href="{% url 'orders:orders_user_total' order.user %}">{{ order.name }}</a></td>
-                <td><a href="{% url 'orders:order_detail' order.number %}">{{ order.number }}</a></td>
+                <td><a href="{% url 'orders:show_order_user' order.number %}">{{ order.number }}</a></td>
                 <td>{{ order.status }}</td>
                 <td>{{ order.created_at }}</td>
             </tr>

@@ -121,14 +121,7 @@ class ListOrdersViewTotal(ListView):  # Получение всех заказо
     model = Order
     template_name = 'orders/list_orders_total.html'
     context_object_name = 'orders'
-    pass
 
-
-# class OrderDetailView(DetailView):
-#     model = Order
-#     template_name = 'orders/order_user.html'
-#     context_object_name = 'orders'
-#     slug_url_kwarg = 'pk'
 
 
 def all_orders_list(request):
@@ -141,6 +134,7 @@ def all_orders_list(request):
     return render(request, template_name='shop/list_orders_total.html', context=context)
 
 
+# Домашнее задание
 class ListOrdersTotalUser(ListView):
     model = Order
     template_name = 'orders/order_user.html'
@@ -156,3 +150,14 @@ class ListOrdersTotalUser(ListView):
         return Order.objects.filter(user=self.request.user)
 
 
+class ShowDetailOrderUser(DetailView):
+    model = Order
+    template_name = 'orders/show_order_user.html'
+    slug_url_kwarg = 'number'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        number = self.object
+        orders = Order.objects.filter(number=number)
+        context['orders'] = orders
+        return context

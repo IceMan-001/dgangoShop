@@ -47,22 +47,11 @@ class ProductListView(ListView):
         categories = Category.objects.all()
         products = Product.objects.all()
         context['categories'] = categories
-        context['filterset'] = self.filterset
         context['products'] = products
 
         return context
 
-    def get_queryset(self):
-        # Получаем категорию по slug из URL
-        if not self.kwargs.get('slug'):
-            queryset = Product.objects.all()
-            self.filterset = ProductFilter(self.request.GET, queryset=queryset)
-            return self.filterset.qs
 
-        category = get_object_or_404(Category, slug=self.kwargs['slug'])
-        queryset = Product.objects.filter(category=category)
-        self.filterset = ProductFilter(self.request.GET, queryset=queryset)
-        return self.filterset.qs
 
 
 class ProductDetailView(DetailView):
