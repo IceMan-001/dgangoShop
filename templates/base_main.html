@@ -17,6 +17,7 @@
 
 </head>
 <body>
+{#Header#}
 {% block header %}
     <header>
         <div class="logo">
@@ -27,14 +28,14 @@
         <div class="menu-nav">
             <ul>
                 <li class="first"><a href="{% url 'products' %}" target="_self">Главная</a></li>
-                <li class="first"><a href="#">Категории товаров</a>
+                <li><a href="#">Категории товаров</a>
                     <ul>
                         {% for category in categories %}
                             <li><a href="{% url 'products_by_category' category.slug %}">{{ category.name }}</a></li>
                         {% endfor %}
                     </ul>
                 </li>
-                <li class="first"><a href="#">Аккаунт</a>
+                <li><a href="#">Аккаунт</a>
                     {% if user.is_staff %}
                         <ul>
                             <li><a href="{% url 'users:profile_list' %}">Пользователь: <i>{{ user.username }}</i></a>
@@ -53,24 +54,26 @@
                         <ul>
                             <li><a href="{% url 'users:profile_list' %}">Пользователь: <i>{{ user.username }}</i></a>
                             </li>
-                            <li><a href="{% url 'users:profile' %}">Редактировать профиль: <i>{{ user.username }}</i></a>
+                            <li><a href="{% url 'users:profile' %}">Редактировать профиль:
+                                <i>{{ user.username }}</i></a>
                             </li>
                             <li><a href="{% url 'users:logout' %}">Выйти</a></li>
                         </ul>
                     {% endif %}
                 </li>
-                <li class="first"><a href="{% url 'about' %}">О Сайте</a></li>
-                <li class="first"><a href="{% url 'contact' %}">Контакты</a></li>
+                <li><a href="{% url 'about' %}">О Сайте</a></li>
+                <li><a href="{% url 'contact' %}">Контакты</a></li>
                 {% if cart|length != 0 %}
                     <li class="first"><a href="{% url 'cart_detail' %}" target="_self">Корзина (<span
                             id="cartLengthHeader">{{ cart|length }}</span>)</a></li>
                 {% else %}
-                    <li class="first"><a href="{% url 'cart_detail' %}" target="_self">Корзина</a></li>
+                    <li><a href="{% url 'cart_detail' %}" target="_self">Корзина</a></li>
                 {% endif %}
-                <li class="first"><a href="{% url 'orders:orders' %}" target="_self">Заказы</a></li>
-             {% if user.is_authenticated %}
-             <li class="first"><a href="{% url 'users:profile_list' %}">Вы авторизованы как: <i>{{ user.username }}</i></a></li>
-             {% endif %}
+                <li><a href="{% url 'orders:orders' %}" target="_self">Заказы</a></li>
+                {% if user.is_authenticated %}
+                    <li class="first"><a href="{% url 'users:profile_list' %}">Вы авторизованы как:
+                        <i>{{ user.username }}</i></a></li>
+                {% endif %}
             </ul>
 
             <div class="search">
@@ -90,27 +93,35 @@
 {% block content %}
 {% endblock content %}
 
+{#Pagination#}
+{% if page_obj.has_other_pages %}
+    <nav class="list-pages">
+        <ul>
+            {% if page_obj.has_previous %}
+                <li class="page-num">
+                    <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
+                </li>
+            {% endif %}
 
-<div class="example1-pagination">
-        {% if page_obj.has_previous %}
-            <a class="example1-pagination_link" href="?page=1">&laquo; первая</a>
-            <a class="example1-pagination_link" href="?page={{ page_obj.previous_page_number }}">предыдущая</a>
-        {% endif %}
+            {% for p in paginator.page_range %}
+                {% if page_obj.number == p %}
+                    <li class="page-num page-num-selected">{{ p }}</li>
+                {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+                    <li class="page-num">
+                        <a href="?page={{ p }}">{{ p }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
 
-        <span class="example1-pagination_link example1-pagination_link__active">
-            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
-        </span>
-
-        {% if page_obj.has_next %}
-            <a class="example1-pagination_link" href="?page={{ page_obj.next_page_number }}">следующая</a>
-            <a class="example1-pagination_link" href="?page={{ page_obj.paginator.num_pages }}">последняя &raquo;</a>
-        {% endif %}
-    </div>
-</div>
-
-
-
-
+            {% if page_obj.has_next %}
+                <li class="page-num">
+                    <a href="?page={{ page_obj.next_page_number }}">&gt;</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endif %}
+{#Footer#}
 {% block footer %}
     <footer>
         <p class="windsong-medium">&copy; 2024 Andrey Bobrov.

@@ -54,8 +54,6 @@ class ProductListView(ListView):
         return context
 
 
-
-
 class ProductDetailView(DetailView):
     model = Product
     template_name = 'shop/product_detail.html'
@@ -67,6 +65,7 @@ class ProductListByCategory(ListView):
     model = Product
     template_name = 'shop/products_by_category.html'
     context_object_name = 'products'
+    paginate_by = 3
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -196,7 +195,6 @@ def product_list_view(request, slug):
         filterset = ProductFilter(request.GET, queryset=products_by_slug)
         context = {'products': filterset.qs, 'filterset': filterset, 'categories': categories}
         return render(request, template_name='shop/product_by_category.html', context=context)
-
 
     queryset = Product.objects.all()
     filterset = ProductFilter(request.GET, queryset=queryset)
