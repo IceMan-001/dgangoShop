@@ -25,14 +25,11 @@
                         <p class="truncate">Описание: {{ product.description }}</p>
                         <p class="price">Цена: {{ product.price }}</p>
                         <p>Дата публикации: {{ product.created }}</p>
-{#                        <div class="qyt">#}
-{#                            <label for="quantity_fruit1">#}
-{#                                Количество:#}
-{#                            </label>#}
-{#                            <input type="number"#}
-{#                                   id="quantity_fruit1"#}
-{#                                   value="1">#}
-{#                        </div>#}
+                        {% if product.available == True %}
+                        <p>Доступность товара для заказа: <b style="color: green">В наличие</b><p>
+                        {% else %}
+                        <p>Доступность товара для заказа: <b style="color: red;">Нет наличие</b><p>
+                        {% endif %}
                         <div class="productbtns">
                             <form class="form_style" action="{% url 'product_detail' product.slug %}" method="get"
                                   target="_self">

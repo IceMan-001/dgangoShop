@@ -54,6 +54,7 @@ class ProductListView(ListView):
         return context
 
 
+
 class ProductDetailView(DetailView):
     model = Product
     template_name = 'shop/product_detail.html'

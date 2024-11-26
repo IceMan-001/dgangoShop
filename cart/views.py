@@ -53,7 +53,7 @@ class Cart:
 
     def clear(self):
         self.cart.clear()
-        # del self.session[CART_SESSION_ID]
+        del self.session[CART_SESSION_ID]
         self.save()
 
     def __iter__(self):
@@ -163,10 +163,10 @@ def remove_product(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     if request.user.id:
         cart = ProductCartUser(request)
+        cart.remove(product_id, request)
     else:
         cart = Cart(request)
-
-    cart.remove(product)
+        cart.remove(product)
     return redirect("cart_detail")
 
 
@@ -205,4 +205,4 @@ def remove_product_ajax(request):
 def remove_cart(request):
     cart = Cart(request)
     cart.clear()
-    return redirect("cart_detail")
+    return redirect('cart_detail')
