@@ -1,4 +1,6 @@
 from django.urls import path
+
+
 from .views import cart_detail, remove_product, update_cart_by_front, remove_cart, remove_product_ajax
 
 

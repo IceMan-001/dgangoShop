@@ -39,6 +39,7 @@ class ListCategoriesView(ListView):
 
 
 class ProductListView(ListView):
+    """Представления всех продуктов на главную страницу (пагинация)"""
     model = Product
     template_name = 'shop/home.html'
     paginate_by = 3
@@ -63,6 +64,7 @@ class ProductDetailView(DetailView):
 
 
 class ProductListByCategory(ListView):
+    """Представление продуктов по категориям (пагинация)"""
     model = Product
     template_name = 'shop/products_by_category.html'
     context_object_name = 'products'
@@ -150,6 +152,7 @@ class CategoryDeleteView(DeleteView):
 
 
 def product_search(request):
+    """Поиск продукта"""
     query = request.GET.get('query')  # получаем запрос из url
     query_text = Q(name__startswith=query) & Q(price__lt=200000) & Q(name__icontains=query)
 

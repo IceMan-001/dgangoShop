@@ -1,6 +1,5 @@
 import json
 
-
 from django.shortcuts import render, redirect
 from django.http.response import JsonResponse, HttpResponse
 from decimal import Decimal
@@ -53,7 +52,7 @@ class Cart:
 
     def clear(self):
         self.cart.clear()
-        del self.session[CART_SESSION_ID]
+        # del self.session[CART_SESSION_ID]
         self.save()
 
     def __iter__(self):
@@ -203,6 +202,7 @@ def remove_product_ajax(request):
 
 
 def remove_cart(request):
+    """Удаление карты"""
     cart = Cart(request)
     cart.clear()
-    return redirect('cart_detail')
+    return redirect("cart_detail")
