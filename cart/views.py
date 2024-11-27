@@ -179,7 +179,6 @@ def update_cart_by_front(request):
 
     if product_id:
         cart = Cart(request)
-
         product = get_object_or_404(Product, pk=int(product_id))
         cart.add(product=product, quantity=int(quantity), override_quantity=True)
         print('ok', cart.cart)
@@ -202,7 +201,7 @@ def remove_product_ajax(request):
 
 
 def remove_cart(request):
-    """Удаление карты"""
+    """Удаление корзины"""
     cart = Cart(request)
     cart.clear()
     return redirect("cart_detail")

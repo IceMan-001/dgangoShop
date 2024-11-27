@@ -14,7 +14,7 @@ from django.core.exceptions import PermissionDenied
 from django.views.generic import ListView, DetailView
 
 user = get_user_model()
-admin = user.objects.get(username='staff')
+
 
 
 @csrf_exempt
@@ -99,6 +99,7 @@ def orders_list(request):
 
 @login_required
 def order_detail(request, number):
+    admin = user.objects.get(username='staff')
     if request.user == admin:
         order = get_object_or_404(Order, number=number)
         context = {"order": order}
@@ -125,6 +126,7 @@ class ListOrdersViewTotal(ListView):  # Получение всех заказо
 
 
 def all_orders_list(request):
+    admin = user.objects.get(username='staff')
     if request.user != admin:
         raise PermissionDenied
 
@@ -144,6 +146,7 @@ class ListOrdersTotalUser(ListView):
     }
 
     def get_queryset(self):
+        admin = user.objects.get(username='staff')
         if self.request.user == admin:
             return Order.objects.all()
 

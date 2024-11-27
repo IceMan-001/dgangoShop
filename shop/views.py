@@ -1,3 +1,5 @@
+from lib2to3.fixes.fix_input import context
+
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import (ListView, CreateView,
                                   UpdateView, DetailView,
@@ -123,6 +125,11 @@ class CategoryListView(ListView):
     model = Category
     template_name = 'shop/categories.html'
     context_object_name = 'categories'
+
+    def get_context_data(self,  **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = 'categories'
+        return context
 
 
 class CategoryDetailView(DetailView):

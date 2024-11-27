@@ -17,7 +17,7 @@ from django.utils.decorators import method_decorator
 
 User = get_user_model()
 user = get_user_model()
-admin = user.objects.get(username='staff')
+
 
 
 class LoginUser(LoginView):
@@ -26,6 +26,7 @@ class LoginUser(LoginView):
     extra_context = {'title': "Авторизация"}
 
     def get_success_url(self):
+        admin = user.objects.get(username='staff')
         if self.request.user == admin:
             return reverse_lazy('admin-page')
 
