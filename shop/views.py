@@ -1,12 +1,8 @@
-from lib2to3.fixes.fix_input import context
-
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import (ListView, CreateView,
                                   UpdateView, DetailView,
                                   DeleteView, TemplateView)
 from django.urls import reverse_lazy
-from unicodedata import category
-
 from .models import Product, Category
 from .forms import CategoryCreateForm, ProductCreateForm
 

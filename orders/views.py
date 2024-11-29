@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import login_required
-
 from django.shortcuts import render, reverse, get_object_or_404
 import json
 import uuid
@@ -10,11 +9,9 @@ from cart.views import Cart, ProductCartUser
 from .forms import OrderForm
 from .models import Order, OrderItem
 from django.core.exceptions import PermissionDenied
-
 from django.views.generic import ListView, DetailView
 
 user = get_user_model()
-
 
 
 @csrf_exempt
@@ -98,7 +95,7 @@ def orders_list(request):
 
 
 @login_required
-def order_detail(request, number):
+def order_detail(request, number): # детальная информация о товаре из заказа
     admin = user.objects.get(username='staff')
     if request.user == admin:
         order = get_object_or_404(Order, number=number)
@@ -156,11 +153,23 @@ class ListOrdersTotalUser(ListView):
 class ShowDetailOrderUser(DetailView):
     model = Order
     template_name = 'orders/show_order_user.html'
-    slug_url_kwarg = 'number'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        number = self.object
-        orders = Order.objects.filter(number=number)
-        context['orders'] = orders
-        return context
+    def get_queryset(self):
+        return Order.objects.filter(user=self.request.user)
+
+
+def show_detail_order_user(request, number):
+    admin = user.objects.get(username='staff')
+    if request.user == admin:
+        order = get_object_or_404(Order, number=number)
+        context = {"order": order}
+        return render(request, template_name='orders/show_order_user.html', context=context)
+
+
+def order_user_admin(request):
+    orders = Order.objects.filter(user=request.user)
+    context = {"orders": orders}
+
+    return render(request, template_name='orders/order_user.html', context=context)
+
+

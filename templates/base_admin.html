@@ -33,7 +33,7 @@
         <div class="nav-links">
             <a href="{% url 'products' %}" target="_self">Главная страница </a>
             <a href="{% url 'admin-page' %}" target="_self">Меню </a>
-            <a href="{% url 'users:profile' %}">Вы авторизованы как: <i>{{ user.username }} </i></a>
+            <a href="{% url 'users:profile' %}">Вы авторизованы как: <i>{{ user.username }}</i></a>
             <a href="{% url 'users:logout' %}" target="_self">Выйти</a>
         </div>
     </div>

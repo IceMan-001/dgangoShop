@@ -52,7 +52,7 @@ class Cart:
 
     def clear(self):
         self.cart.clear()
-        # del self.session[CART_SESSION_ID]
+        del self.session[CART_SESSION_ID]
         self.save()
 
     def __iter__(self):

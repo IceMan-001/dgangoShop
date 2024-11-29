@@ -3,84 +3,128 @@
 {% load custom_tags %}
 
 {% block title %}
-    <title>Список товаров</title>
+<title>Список товаров</title>
 {% endblock title %}
 
 {% block content %}
+<style>
+    .table {
+	width: max-content;
+	margin: 20px 0 20px 5px;
+    border-bottom: 2px solid maroon;
+    border-top: 2px solid maroon;
+	}
+
+.filters {
+    padding: 20px;
+}
+   .table a {
+    text-decoration: none;
+    color: black;
+    font-size: 1rem;
+    }
+
+    .table-li {
+    margin:5px;
+    }
+
+
+</style>
+
+<div style="display: flex; ">
+    <div class="filters">
+        <h2>Категории товаров</h2>
+        <table class="table">
+            <tbody>
+            <tr>
+                <td>
+                    {% for category in categories %}
+                    <li class="table-li"><a href="{% url 'products_by_category' category.slug %}">{{ category.name }}</a></li>
+                    {% endfor %}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
     <div class="container">
         <section>
             <div class="category">
                 {% for product in products %}
-                    <div class="product">
-                        <div class="image-placeholder image-placeholder5">
-                            {% if product.image %}
-                                <a href="{% url 'edit_product' product.id %}" class="card__image">
-                                    <img
-                                            src="{{ product.image.url }}"
-                                            alt="Картинка"/>
-                                </a>
-                            {% endif %}
-                        </div>
-                        <h4>Название товара: {{ product.name }}</h4>
-                        <p class="truncate">Описание: {{ product.description }}</p>
-                        <p class="price">Цена: {{ product.price }}</p>
-                        <p>Дата публикации: {{ product.created }}</p>
-                        {% if product.available == True %}
-                        <p>Доступность товара для заказа: <b style="color: green">В наличие</b><p>
-                        {% else %}
-                        <p>Доступность товара для заказа: <b style="color: red;">Нет наличие</b><p>
+                <div class="product">
+                    <div class="image-placeholder image-placeholder5">
+                        {% if product.image %}
+                        <a href="{% url 'edit_product' product.id %}" class="card__image">
+                            <img
+                                    src="{{ product.image.url }}"
+                                    alt="Картинка"/>
+                        </a>
                         {% endif %}
-                        <div class="productbtns">
-                            <form class="form_style" action="{% url 'product_detail' product.slug %}" method="get"
-                                  target="_self">
-                                <button type="submit">Подробнее</button>
-                            </form>
-                            {% if product.id|string_value in cart.cart %}
-                                <form class="form_style" action="{% url 'add_to_cart' product.slug %}" method="get"
-                                      target="_self">
-                                    <button type="submit">
-                                        Добавлено {{ cart|count_items:product.id|string_value }}</button>
-                                </form>
-                            {% else %}
-
-                                <form class="form_style" action="{% url 'add_to_cart' product.slug %}" method="get"
-                                      target="_self">
-                                    <button type="submit">В корзину</button>
-                                </form>
-                            {% endif %}
-                        </div>
                     </div>
+                    <h4>Название товара: {{ product.name }}</h4>
+                    <p class="truncate">Описание: {{ product.description }}</p>
+                    <p class="price">Цена: {{ product.price }}</p>
+                    <p>Дата публикации: {{ product.created }}</p>
+                    {% if product.available == True %}
+                    <p>Доступность товара для заказа: <b style="color: green">В наличие</b>
+                    <p>
+                        {% else %}
+                    <p>Доступность товара для заказа: <b style="color: red;">Нет наличие</b>
+                    <p>
+                        {% endif %}
+                    <div class="productbtns">
+                        <form class="form_style" action="{% url 'product_detail' product.slug %}" method="get"
+                              target="_self">
+                            <button type="submit">Подробнее</button>
+                        </form>
+                        {% if product.id|string_value in cart.cart %}
+                        <form class="form_style" action="{% url 'add_to_cart' product.slug %}" method="get"
+                              target="_self">
+                            <button type="submit">
+                                Добавлено {{ cart|count_items:product.id|string_value }}
+                            </button>
+                        </form>
+                        {% else %}
+
+                        <form class="form_style" action="{% url 'add_to_cart' product.slug %}" method="get"
+                              target="_self">
+                            <button type="submit">В корзину</button>
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
                 {% endfor %}
             </div>
         </section>
     </div>
-
+</div>
 {% if page_obj.has_other_pages %}
-    <nav class="list-pages">
-        <ul>
-            {% if page_obj.has_previous %}
-                <li class="page-num">
-                    <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
-                </li>
-            {% endif %}
+<nav class="list-pages">
+    <ul>
+        {% if page_obj.has_previous %}
+        <li class="page-num">
+            <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
+        </li>
+        {% endif %}
 
-            {% for p in paginator.page_range %}
-                {% if page_obj.number == p %}
-                    <li class="page-num page-num-selected">{{ p }}</li>
-                {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
-                    <li class="page-num">
-                        <a href="?page={{ p }}">{{ p }}</a>
-                    </li>
-                {% endif %}
-            {% endfor %}
+        {% for p in paginator.page_range %}
+        {% if page_obj.number == p %}
+        <li class="page-num page-num-selected">{{ p }}</li>
+        {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+        <li class="page-num">
+            <a href="?page={{ p }}">{{ p }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
 
-            {% if page_obj.has_next %}
-                <li class="page-num">
-                    <a href="?page={{ page_obj.next_page_number }}">&gt;</a>
-                </li>
-            {% endif %}
-        </ul>
-    </nav>
+        {% if page_obj.has_next %}
+        <li class="page-num">
+            <a href="?page={{ page_obj.next_page_number }}">&gt;</a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
 {% endif %}
+
 {% endblock content %}
 
