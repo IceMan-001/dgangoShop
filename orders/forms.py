@@ -9,7 +9,7 @@ class QuickOrderForms(forms.Form):
     email = forms.EmailField(label='Эл.почта')
     phone = forms.CharField(max_length=20, label='Телефон')
     payment = forms.ChoiceField(choices=PAYMENT_CHOISES, label="Способ оплаты")
-    delivery = forms.ChoiceField(choices=DELIVERY_CHOISES, label="Способ оплаты")
+    delivery = forms.ChoiceField(choices=DELIVERY_CHOISES, label="Способ доставки")
 
 
 class OrderForm(forms.ModelForm):

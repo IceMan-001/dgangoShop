@@ -1,7 +1,55 @@
 {% extends 'base_secondary.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+{% endblock title %}
 
 {% block content %}
+
+    <style>
+
+        .button {
+            background: green;
+            max-width: 200px;
+            margin: 15px auto;
+            padding: 5px 20px 5px 20px;
+            border-radius: 10px;
+            font-size: 15px;
+            box-shadow: 3px -3px 0 0 #E0DFF0;
+
+        }
+        .wrapper {
+            background-color: whitesmoke;
+            list-style-type: none;
+            padding: 0;
+            border-radius: 3px;
+        }
+        .form-row {
+            display: flex;
+            justify-content: flex-end;
+            padding: .5em;
+        }
+        .form-row > label {
+            padding: .5em 1em .5em 0;
+            flex: 1;
+        }
+        .form-row > input {
+            flex: 2;
+        }
+        .form-row > input,
+        .form-row > button {
+            padding: .5em;
+        }
+        .form-row > button {
+            background: gray;
+            color: white;
+            border: 0;
+        }
+        .content-text-h4 {
+            font-size: 2rem;
+        }
+    </style>
 
     {% if cart|length != 0 %}
         <table class="table" style="text-align: center;">
@@ -61,7 +109,8 @@
                 {% if not request.user.id %}
                     <a href="#" class="button-style-order" id="newOrder">Оформить не авторизованный пользователь</a>
                 {% else %}
-                    <a href="{% url 'orders:new_order' %}" class="button-style-order" id="newOrderUser">Оформить авторизованный
+                    <a href="{% url 'orders:new_order' %}" class="button-style-order" id="newOrderUser">Оформить
+                        авторизованный
                         пользователь</a>
                 {% endif %}
                 <a href="{% url 'remove_cart' %}" class="button-style-clear">Очистить корзину</a>
@@ -79,20 +128,44 @@
             </div>
         </div>
 
-        <div id="orderFormModal" class="modal__order-form">
-            <div class="modal-content__order-form">
+        <div id="orderFormModal" class="modal__order-form content">
+            <div class="modal-content__order-form i-am-centered">
                 <span id="closeOrderForm" class="close">&times;</span>
-
-                <h4>Заполните информацию для заказа</h4>
+                <h4 class="content-text-h4">Заполните информацию для заказа</h4>
                 <form action="#" method="post">
-                    {{ quick_order_form.as_p }}
                     {% csrf_token %}
-                    <input type="button" id="createQuickOrderBtn" value="Оформить">
+                    <br>
+                    <ul class="wrapper">
+                        <li class="form-row">
+                            <label for="name">Имя</label>
+                            {{ quick_order_form.name }}
+                        </li>
+                        <li class="form-row">
+                            <label for="last_name">Фамилия</label>
+                            {{ quick_order_form.last_name }}
+                        </li>
+                        <li class="form-row">
+                            <label for="email">Электронный адрес</label>
+                            {{ quick_order_form.email }}
+                        </li>
+                        <li class="form-row">
+                            <label for="phone">Телефон</label>
+                            {{ quick_order_form.phone }}
+                        </li>
+                        <li class="form-row">
+                            <label for="payment">Способ оплаты</label>
+                            {{ quick_order_form.payment }}
+                        </li>
+                        <li class="form-row">
+                            <label for="delivery">Способ доставки</label>
+                            {{ quick_order_form.delivery }}
+                        </li>
+                    </ul>
+                    <input type="button" class="button" id="createQuickOrderBtn" value="Оформить">
                 </form>
             </div>
         </div>
     {% else %}
-
         <div style="display: flex;
             justify-content: center;
             font-size: 30px;
