@@ -53,6 +53,21 @@ class ProductListView(ListView):
         return context
 
 
+class ProductListViewAdmin(ListView):
+    """Представления всех продуктов на админскую страницу (пагинация)"""
+    model = Product
+    template_name = 'shop/products.html'
+    paginate_by = 4
+    slug_url_kwarg = 'slug'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        categories = Category.objects.all()
+        products = Product.objects.all()
+        context['categories'] = categories
+        context['products'] = products
+
+        return context
 
 class ProductDetailView(DetailView):
     model = Product
@@ -122,10 +137,10 @@ class CategoryListView(ListView):
     template_name = 'shop/categories.html'
     context_object_name = 'categories'
 
-    def get_context_data(self,  **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['categories'] = 'categories'
-        return context
+    # def get_context_data(self,  **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['categories'] = 'categories'
+    #     return context
 
 
 class CategoryDetailView(DetailView):
@@ -137,12 +152,10 @@ class CategoryDetailView(DetailView):
 
 class CategoryUpdateView(UpdateView):
     model = Category
-    fields = ['name']
+    form_class = CategoryCreateForm
     template_name = 'shop/edit_category.html'
-    success_url = reverse_lazy('categories')
-    extra_context = {
-        'title': 'Редактирование категории товара',
-    }
+    context_object_name = 'category'
+
 
 
 class CategoryDeleteView(DeleteView):

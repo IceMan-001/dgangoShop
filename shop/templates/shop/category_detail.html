@@ -7,10 +7,16 @@
 
 {% block content %}
 
-<div>Категория - {{category.name}}</div>
+<div style="margin:15px;">
+    <h3>Категория - {{category.name}}</h3>
+</div>
 
-<p>Краткая информация о категории</p>
-<p>Шесть случайных товаров из этой категории</p>
+<p style="margin:15px;">Краткая информация о категории:</p>
 
+
+<div style="margin:15px;">
+    <h4><a href="{% url 'edit_category' category.id %}">1. Редактировать категорию</a></h4>
+    <h4><a href="{% url 'delete_category' category.id %}">2. Удалить категорию</a></h4>
+</div>
 {% endblock content %}
 
