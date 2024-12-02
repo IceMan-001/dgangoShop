@@ -40,4 +40,6 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-
+handler403 = "shop.views.forbidden"
+handler404 = "shop.views.page_not_found"
+handler500 = "shop.views.server_error"

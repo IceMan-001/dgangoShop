@@ -220,3 +220,15 @@ def product_list_view(request, slug):
     filterset = ProductFilter(request.GET, queryset=queryset)
     context = {'products': filterset.qs, 'filterset': filterset, 'categories': categories}
     return render(request, template_name='shop/product_by_category.html', context=context)
+
+
+def page_not_found(request, exception):
+    return render(request, template_name='shop/404.html', status=404)
+
+
+def forbidden(request, exception):
+    return render(request, template_name='shop/403.html', status=403)
+
+
+def server_error(request):
+    return render(request, template_name='shop/500.html', status=500)
