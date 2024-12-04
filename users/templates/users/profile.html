@@ -3,9 +3,6 @@
 {% block content %}
 
 <style>
-    img {
-    max-width: 600px; height: auto;
-    }
 
     .form-label, .form-input {
     display: inline-block;
@@ -40,7 +37,10 @@
     color: blue;
     font-size: 1rem;
     }
-
+    profile-photo {
+        width: 100px;
+         height: auto;
+    }
 </style>
 
 <div class="content">
@@ -49,9 +49,9 @@
         {% csrf_token %}
 
         {% if user.photo %}
-        <p><img src="{{ user.photo.url }}">
+        <p><img class="profile-photo" src="{{ user.photo.url }}"></p>
             {% else %}
-        <p><img src="{% static  'photo/default.png' %}">
+        <p><img src="{% static  'photo/default.png' %}"></p>
             {% endif %}
 
         <div class="form-error">{{ form.non_field_errors }}</div>

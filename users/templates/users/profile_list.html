@@ -1,5 +1,5 @@
 {% extends 'base_secondary.html' %}
-
+{% load static %}
 
 {% block title %}
     <title>{{title}}</title>
@@ -9,11 +9,18 @@
 
 <h2>Информация о пользователе {{ user.username }}</h2>
 <hr>
+{% if user.photo %}
+        <p><img class="profile-photo" src="{{ user.photo.url }}"></p>
+            {% else %}
+        <p><img src="{% static  'photo/default.png' %}"></p>
+            {% endif %}
 <div>Логин - {{ user.username }}</div>
 <div>Имя - {{ user.first_name }}</div>
 <div>Фамилия - {{ user.last_name }}</div>
 <div>Эл.адрес - {{ user.email }}</div>
 <div>Телефон - {{ user.phone }}</div>
+<div>Город - {{ user.city }}</div>
+<div>Дата пождения - {{ user.date_birth }}</div>
 <hr>
 <div>Дата регистрации - {{ user.date_joined|date:'d-m-Y H:i'}}</div>
 
