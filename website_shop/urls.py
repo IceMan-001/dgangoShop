@@ -18,13 +18,13 @@ from django.contrib import admin
 from django.urls import path, include
 from website_shop import settings
 from django.conf.urls.static import static
-from shop.views import AdminTemplateView, ProductCreateView, ProductListView, about, contact
+from shop.views import AdminTemplateView, ProductCreateView, ProductListView, about, contact, admin_page
 from orders.views import all_orders_list
 
 urlpatterns = [
     path('staff/orders/', all_orders_list, name='admin_all_orders'),
     path('', ProductListView.as_view(), name='main'),  # корень сайта
-    path('staff/', AdminTemplateView.as_view(), name='admin-page'),
+    path('staff/', admin_page, name='admin-page'),
     path('admin/', admin.site.urls),
     path('product/', include('shop.urls')),
     path('cart/', include('cart.urls')),

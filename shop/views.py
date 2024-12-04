@@ -3,6 +3,7 @@ from django.views.generic import (ListView, CreateView,
                                   UpdateView, DetailView,
                                   DeleteView, TemplateView)
 from django.urls import reverse_lazy
+from django.core.exceptions import PermissionDenied
 from .models import Product, Category
 from .forms import CategoryCreateForm, ProductCreateForm
 
@@ -11,6 +12,11 @@ from django.db.models import Q
 from django.views.generic.list import MultipleObjectMixin
 from .filters import ProductFilter
 
+def admin_page(request):
+    if request.user.username != "staff":
+        # return forbidden(request, exception="")
+        raise PermissionDenied
+    return render(request, template_name='shop/admin.html')
 
 class AdminTemplateView(TemplateView):  # Админская страница
     template_name = 'shop/admin.html'
@@ -40,24 +46,25 @@ class ProductListView(ListView):
     """Представления всех продуктов на главную страницу (пагинация)"""
     model = Product
     template_name = 'shop/home.html'
-    paginate_by = 3
+    paginate_by = 6
     slug_url_kwarg = 'slug'
+    context_object_name = 'products'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         categories = Category.objects.all()
-        products = Product.objects.all()
+        # products = Product.objects.all()
         context['categories'] = categories
-        context['products'] = products
+        # context['products'] = products
 
         return context
 
 
 class ProductListViewAdmin(ListView):
-    """Представления всех продуктов на админскую страницу (пагинация)"""
+    """Представления всех продуктов на "админскую" страницу (пагинация)"""
     model = Product
     template_name = 'shop/products.html'
-    paginate_by = 4
+    paginate_by = 3
     slug_url_kwarg = 'slug'
 
     def get_context_data(self, **kwargs):
@@ -190,9 +197,7 @@ def product_search(request):
 def about(request):
     context = {
         'name': 'Ivan',
-        'lastname': 'Ivanov',
-        'email': 'ivanivanov@yandex.ru',
-        'title': 'Страница о нас',
+        'last_name': 'Ivanov',
     }
     return render(request, template_name='shop/about.html', context=context)
 

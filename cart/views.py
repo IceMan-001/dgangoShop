@@ -79,11 +79,11 @@ class ProductCartUser:
         # получаем корзину польз-ля из БД или создаем НОВУЮ
         self.user_cart, created = CartUser.objects.get_or_create(user=self.user)
         # получаем позиции товаров в корзине
-        products_in_cart = CartItem.objects.filter(cart=self.user_cart)
+        self.products_in_cart = CartItem.objects.filter(cart=self.user_cart)
         # создаем объект для хранения товаров
         self.cart = {}
 
-        for item in products_in_cart:
+        for item in self.products_in_cart:
             self.cart[str(item.product.id)] = {'quantity': item.quantity, 'price': item.product.price}
 
     def add(self, product, quantity=1, override_quantity=False):
@@ -172,8 +172,6 @@ def remove_product(request, product_id):
 @csrf_exempt
 def update_cart_by_front(request):
     data = json.loads(request.body)
-    print(data)
-    print(type(data))
     product_id = data.get('productIdValue')
     quantity = data.get('quantityValue')
 
@@ -201,7 +199,13 @@ def remove_product_ajax(request):
 
 
 def remove_cart(request):
-    """Удаление корзины"""
-    cart = Cart(request)
-    cart.clear()
+    """Удаление корзины у не авторизованного пользователя"""
+    if not request.user.id:
+        cart = Cart(request)
+        cart.clear()
+    else:
+        cart = ProductCartUser(request)
+        for item in cart.products_in_cart:
+            item.delete()
+
     return redirect("cart_detail")
