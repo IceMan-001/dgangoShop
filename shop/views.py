@@ -4,7 +4,7 @@ from django.views.generic import (ListView, CreateView,
                                   DeleteView, TemplateView)
 from django.urls import reverse_lazy
 from django.core.exceptions import PermissionDenied
-from .models import Product, Category
+from .models import Product, Category, Gallery
 from .forms import CategoryCreateForm, ProductCreateForm
 
 from django.db.models import Q
@@ -14,12 +14,12 @@ from .filters import ProductFilter
 
 def admin_page(request):
     if request.user.username != "staff":
-        # return forbidden(request, exception="")
-        raise PermissionDenied
+        return forbidden(request, exception="")
+        # raise PermissionDenied
     return render(request, template_name='shop/admin.html')
 
 class AdminTemplateView(TemplateView):  # Админская страница
-    template_name = 'shop/admin.html'
+     template_name = 'shop/admin.html'
 
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)
@@ -53,9 +53,13 @@ class ProductListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         categories = Category.objects.all()
-        # products = Product.objects.all()
+        my_product = Product()
+        images = Gallery.objects.all()
+        # images = Gallery.objects.filter(products_id=my_product)
+
+
         context['categories'] = categories
-        # context['products'] = products
+        context['images'] = images
 
         return context
 

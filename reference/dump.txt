@@ -18,3 +18,7 @@
     python -Xutf8 manage.py loaddata db.json
 
 https://proghunter.ru/articles/django-base-2023-installing-postgresql-in-django?ysclid=m1uzznon2229572382#сохранение-данных-для-переноса-бд-из-sqlite-в-postgresql-в-django
+
+-> python manage.py dumpdata shop.product > product.json одна таблица скопировать
+
+->восстановить данные из одной таблицы
