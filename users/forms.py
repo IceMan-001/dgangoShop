@@ -54,11 +54,13 @@ class ProfileUserForm(forms.ModelForm):
         labels = {
             'first_name': 'Имя',
             'last_name': 'Фамилия',
+            'date_birth': 'Дата рождения',
         }
         widgets = {
             'first_name': forms.TextInput(attrs={'class': 'form-input'}),
             'last_name': forms.TextInput(attrs={'class': 'form-input'}),
         }
+
 
 class CustomPasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(label="Старый пароль", widget=forms.PasswordInput)
@@ -78,6 +80,7 @@ class CustomPasswordChangeForm(PasswordChangeForm):
             raise forms.ValidationError("Пароли совпадают с текущим")
 
         return cleaned_data
+
 
 class ChangePasswordForm(forms.Form):
     old_password = forms.CharField(widget=forms.PasswordInput, label='Старый пароль')
