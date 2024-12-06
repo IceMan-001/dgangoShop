@@ -100,7 +100,7 @@
 
                     </div>
                     <div style="display: flex; flex-direction: row; justify-content: center;">
-                      {% for image in images %}
+                      {% for image in product.images.all %}
                     <div class="image_down_zoom">
                         <img class="image_small_down"
                              src="{{ image.image.url }}"
