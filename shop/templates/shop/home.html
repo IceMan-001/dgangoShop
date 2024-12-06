@@ -100,7 +100,7 @@
 
                     </div>
                     <div style="display: flex; flex-direction: row; justify-content: center;">
-                      {% for image in images %}
+                      {% for image in product.images.all %}
                     <div class="image_down_zoom">
                         <img class="image_small_down"
                              src="{{ image.image.url }}"
@@ -149,13 +149,7 @@
         </section>
     </div>
 </div>
-<!--<div>-->
-<!--    {% for image in images %}-->
-<!--    <img-->
-<!--            src="{{ image.image.url }}"-->
-<!--            alt="Картинка"/>-->
-<!--    {% endfor %}-->
-<!--</div>-->
+
 {% if page_obj.has_other_pages %}
 <nav class="list-pages">
     <ul>

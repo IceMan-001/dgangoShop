@@ -24,9 +24,6 @@ urlpatterns = [
     path('<slug:slug>/', ProductDetailView.as_view(), name='product_detail'),
     path('<slug:slug>/addToCart/', cart_add, name='add_to_cart'),
 
-
-
-
     path('products/categories/', CategoryListView.as_view(), name='categories'),
     path('categories/add/', CategoryCreateView.as_view(), name='category_add'),
     path('edit_category/<int:pk>/', CategoryUpdateView.as_view(), name='edit_category'),

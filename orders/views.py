@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.contrib.auth import get_user_model
 from cart.views import Cart, ProductCartUser
+from shop.models import Category
 from .forms import OrderForm
 from .models import Order, OrderItem
 from django.core.exceptions import PermissionDenied
@@ -88,8 +89,10 @@ def new_order(request):
 
 @login_required
 def orders_list(request):
+    categories = Category.objects.all()
+    context = {'categories': categories}
     orders = Order.objects.filter(user=request.user)
-    context = {"orders": orders}
+    context = {"orders": orders, 'categories': categories}
 
     return render(request, template_name='orders/orders.html', context=context)
 

@@ -3,7 +3,7 @@ import json
 from django.shortcuts import render, redirect
 from django.http.response import JsonResponse, HttpResponse
 from decimal import Decimal
-from shop.models import Product
+from shop.models import Product, Category
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 
@@ -155,7 +155,9 @@ def cart_add(request, slug):
 
 
 def cart_detail(request):
-    return render(request, template_name='cart/cart_detail.html')
+    categories = Category.objects.all()
+    context = {'categories': categories}
+    return render(request, template_name='cart/cart_detail.html', context=context)
 
 
 def remove_product(request, product_id):

@@ -1,18 +1,17 @@
 from django.contrib import admin
 from .models import Category, Product, Gallery
 
-class GalleryInline(admin.TabularInline):
-    fk_name = 'product'
-    model = Gallery
-
 
 # Register your models here.
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    """Попытка загрузки нескольких картинок товара"""
-
     list_display = ['name', 'slug']
     prepopulated_fields = {'slug': ('name',)}  # вычисляемые поля
+
+
+class GalleryInline(admin.TabularInline):
+    fk_name = 'product'
+    model = Gallery
 
 
 @admin.register(Product)
@@ -24,13 +23,3 @@ class ProductAdmin(admin.ModelAdmin):
     inlines = [GalleryInline, ]
 
 
-
-
-# class GalleryInline(admin.TabularInline):
-#     fk_name = 'product'
-#     model = Gallery
-#
-#
-# @admin.register(Product)
-# class ProductAdminImage(admin.ModelAdmin):
-#     inlines = [GalleryInline, ]

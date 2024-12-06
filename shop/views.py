@@ -42,6 +42,10 @@ class ListCategoriesView(ListView):
     context_object_name = 'categories'
 
 
+class ProductImage:
+    pass
+
+
 class ProductListView(ListView):
     """Представления всех продуктов на главную страницу (пагинация)"""
     model = Product
@@ -53,13 +57,12 @@ class ProductListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         categories = Category.objects.all()
-        my_product = Product()
-        images = Gallery.objects.all()
-        # images = Gallery.objects.filter(products_id=my_product)
-
+        product = Product()
+        images = self.request.FILES.getlist('images')
+        for image in images:
+            ProductImage.objects.create(product=product, image=image)
 
         context['categories'] = categories
-        context['images'] = images
 
         return context
 

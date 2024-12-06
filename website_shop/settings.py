@@ -156,3 +156,9 @@ SERVER_EMAIL = EMAIL_HOST_USER
 EMAIL_ADMIN = EMAIL_HOST_USER
 
 AUTH_USER_MODEL = 'users.ProfileUserForm'
+
+"""Регистрация по email"""
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'users.authentication.EmailAuthBackend',
+]

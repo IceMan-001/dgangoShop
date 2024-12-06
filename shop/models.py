@@ -67,7 +67,7 @@ class Product(models.Model):
 
 
 
-"""Попытка загрузки нескольких картинок товара"""
+"""Загрузки нескольких картинок товара"""
 class Gallery(models.Model):
     image = models.ImageField(upload_to='gallery')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')

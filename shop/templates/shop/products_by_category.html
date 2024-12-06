@@ -106,28 +106,33 @@
                     <p>Доступность товара для заказа: <b style="color: red;">Нет наличие</b>
                     <p>
                         {% endif %}
-                     <div class="productbtns">
-                     <form class="form_style" action="{% url 'product_detail' product.slug %}" method="get"
-                                  target="_self">
-                                <button type="submit">Подробнее</button>
-                            </form>
-                            {% if product.id|string_value in cart.cart %}
-                                <form class="form_style" action="{% url 'add_to_cart' product.slug %}" method="get"
-                                      target="_self">
-                                    <button type="submit">
-                                        Добавлено {{ cart|count_items:product.id|string_value }}</button>
-                                </form>
-                            {% else %}
-
-                                <form class="form_style" action="{% url 'add_to_cart' product.slug %}" method="get"
-                                      target="_self">
-                                    <button type="submit">В корзину</button>
-                                </form>
-                            {% endif %}
-                        </div>
+                    <div class="productbtns">
+                        <form class="form_style" action="{% url 'product_detail' product.slug %}" method="get"
+                              target="_self">
+                            <button type="submit">Подробнее</button>
+                        </form>
+                        {% if product.id|string_value in cart.cart %}
+                        <form class="form_style" action="{% url 'add_to_cart' product.slug %}" method="get"
+                              target="_self">
+                            <button type="submit">
+                                Добавлено {{ cart|count_items:product.id|string_value }}
+                            </button>
+                        </form>
+                        {% else %}
+                        {% if product.available == True %}
+                        <form class="form_style" action="{% url 'add_to_cart' product.slug %}"
+                              method="get"
+                              target="_self">
+                            <button type="submit">В корзину</button>
+                        </form>
+                        {% else %}
+                        <button style="opacity: 0.5;" type="submit">В корзину</button>
+                        {% endif %}
+                        {% endif %}
                     </div>
-                {% endfor %}
                 </div>
+                {% endfor %}
+            </div>
         </section>
     </div>
 </div>
