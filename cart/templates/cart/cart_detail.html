@@ -107,11 +107,10 @@
 
             <div style="padding-top:10px; display: flex; justify-content: space-between;">
                 {% if not request.user.id %}
-                    <a href="#" class="button-style-order" id="newOrder">Оформить не авторизованный пользователь</a>
+                    <a href="#" class="button-style-order" id="newOrder">Оформить как не авторизованный пользователь</a>
                 {% else %}
-                    <a href="{% url 'orders:new_order' %}" class="button-style-order" id="newOrderUser">Оформить
-                        авторизованный
-                        пользователь</a>
+                    <a href="{% url 'orders:new_order' %}" class="button-style-order" id="newOrderUser">Оформить как
+                        авторизованный пользователь</a>
                 {% endif %}
                 <a href="{% url 'remove_cart' %}" class="button-style-clear">Очистить корзину</a>
             </div>
@@ -173,7 +172,6 @@
             padding-bottom: 40px;">
             Корзина пуста!
         </div>
-
     {% endif %}
 
 {% endblock content %}

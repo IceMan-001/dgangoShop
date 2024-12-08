@@ -2,27 +2,28 @@
 {% load static %}
 
 {% block title %}
-    <title>{{title}}</title>
+    <title>{{ title }}</title>
 {% endblock title %}
 
 {% block content %}
 
-<h2>Информация о пользователе {{ user.username }}</h2>
-<hr>
-{% if user.photo %}
+    <h2>Информация о пользователе {{ user.username }}</h2>
+    <hr>
+    {% if user.photo %}
         <p><img class="profile-photo" src="{{ user.photo.url }}"></p>
-            {% else %}
+    {% else %}
         <p><img src="{% static  'photo/default.png' %}"></p>
-            {% endif %}
-<div>Логин - {{ user.username }}</div>
-<div>Имя - {{ user.first_name }}</div>
-<div>Фамилия - {{ user.last_name }}</div>
-<div>Эл.адрес - {{ user.email }}</div>
-<div>Телефон - {{ user.phone }}</div>
-<div>Город - {{ user.city }}</div>
-<div>Дата рождения - {{ user.date_birth }}</div>
-<hr>
-<div>Дата регистрации - {{ user.date_joined|date:'d-m-Y H:i'}}</div>
-
+    {% endif %}
+    <div class="list-profile-text">
+        <h3>Логин - {{ user.username }}</h3>
+        <h3>Имя - {{ user.first_name }}</h3>
+        <h3>Фамилия - {{ user.last_name }}</h3>
+        <h3>Эл.адрес - {{ user.email }}</h3>
+        <h3>Телефон - {{ user.phone }}</h3>
+        <h3>Город - {{ user.city }}</h3>
+        <h3>Дата рождения - {{ user.date_birth|date:'d-m-Y' }}</h3>
+        <hr>
+        <h3>Дата регистрации - {{ user.date_joined|date:'d-m-Y H:i' }}</h3>
+    </div>
 
 {% endblock content %}

@@ -13,7 +13,7 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, editable=False, null=True)
     cart = models.OneToOneField(CartUser, null=True, on_delete=models.SET_NULL, editable=False)
 
-    status = models.CharField(max_length=50, default='в обработке')
+    status = models.CharField(max_length=50, default='в обработке', verbose_name='Статус')
     payment = models.CharField(max_length=50, default='картой')
     delivery = models.CharField(max_length=50, default='самовывоз из магазина')
     address = models.TextField(null=True)

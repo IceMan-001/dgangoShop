@@ -26,11 +26,9 @@ async function getCartLength() {
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
         },
-
     });
-
     let result = await response.json();
-    alert(result.cart_length);
+    alert(result.cart_length, result.message);
 };
 
 function getTotalPriceCart() {

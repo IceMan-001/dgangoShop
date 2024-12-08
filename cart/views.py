@@ -211,3 +211,10 @@ def remove_cart(request):
             item.delete()
 
     return redirect("cart_detail")
+
+
+def get_cart_length(request):
+    cart = Cart(request)
+    cart_length = len(cart)
+    response_data = {"cart_length": cart_length}
+    return JsonResponse(response_data)

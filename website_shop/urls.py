@@ -22,18 +22,17 @@ from shop.views import AdminTemplateView, ProductCreateView, ProductListView, ab
 from orders.views import all_orders_list
 
 urlpatterns = [
-    path('staff/orders/', all_orders_list, name='admin_all_orders'),
     path('', ProductListView.as_view(), name='main'),  # корень сайта
     path('staff/', admin_page, name='admin-page'),
+    path('staff/orders/', all_orders_list, name='admin_all_orders'),
     path('admin/', admin.site.urls),
+    # include() -> группировала маршрутов, относящихся к одной категории
     path('product/', include('shop.urls')),
     path('cart/', include('cart.urls')),
+    path('orders/', include('orders.urls')),
+    path('users/', include('users.urls')),
     path('about/', about, name='about'),
     path('contact/', contact, name='contact'),
-    path('orders/', include('orders.urls')),
-
-
-    path('users/', include('users.urls', namespace="users")), # include() -> группировала маршрутов, относящихся к одной категории
 ]
 
 # включаем возможность обработки картинок

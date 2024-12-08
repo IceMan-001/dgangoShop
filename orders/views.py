@@ -34,7 +34,6 @@ def new_order_ajax(request):
     phone = data.get('phone')
     delivery = data.get('delivery')
     payment = data.get('payment')
-
     cart = Cart(request)
     order = Order.objects.create(name=name,
                                  last_name=last_name,

@@ -12,19 +12,22 @@ from django.db.models import Q
 from django.views.generic.list import MultipleObjectMixin
 from .filters import ProductFilter
 
+
 def admin_page(request):
     if request.user.username != "staff":
         return forbidden(request, exception="")
         # raise PermissionDenied
     return render(request, template_name='shop/admin.html')
 
-class AdminTemplateView(TemplateView):  # Админская страница
-     template_name = 'shop/admin.html'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['total'] = 5
-    #     return context
+class AdminTemplateView(TemplateView):  # Админская страница
+    template_name = 'shop/admin.html'
+
+
+# def get_context_data(self, **kwargs):
+#     context = super().get_context_data(**kwargs)
+#     context['total'] = 5
+#     return context
 
 
 class ProductCreateView(CreateView):
@@ -82,6 +85,7 @@ class ProductListViewAdmin(ListView):
         context['products'] = products
 
         return context
+
 
 class ProductDetailView(DetailView):
     model = Product
@@ -171,7 +175,6 @@ class CategoryUpdateView(UpdateView):
     context_object_name = 'category'
 
 
-
 class CategoryDeleteView(DeleteView):
     model = Category
     template_name = 'shop/delete_category.html'
@@ -184,7 +187,8 @@ class CategoryDeleteView(DeleteView):
 def product_search(request):
     """Поиск продукта"""
     query = request.GET.get('query')  # получаем запрос из url
-    query_text = Q(name__startswith=query) & Q(price__lt=200000) & Q(name__icontains=query)
+    # query_text = Q(name__startswith=query) & Q(price__lt=200000) & Q(name__icontains=query)
+    query_text = Q(name__icontains=query)
 
     results = Product.objects.filter(query_text)
     categories = Category.objects.all()
