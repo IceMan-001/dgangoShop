@@ -8,7 +8,7 @@ from .views import (ProductListView, CategoryCreateView,
                     CategoryDetailView, ProductUpdateView,
                     CategoryUpdateView, CategoryDeleteView,
                     ProductDeleteView, ProductListByCategory,
-                    ProductDetailView, ProductListViewAdmin)
+                    ProductDetailView, ProductListViewAdmin,)
 from .views import product_search, product_list_view
 
 # my_site/product/products/

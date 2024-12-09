@@ -198,26 +198,20 @@ def product_search(request):
     return render(request, template_name="shop/home.html", context=context)
 
 
-# class AboutView(ListView):
-#     template_name = 'shop/about.html'
-#     extra_context = {
-#         'title': 'Страница о нас',
-#     }
-
-
 def about(request):
     context = {
-        'name': 'Ivan',
-        'last_name': 'Ivanov',
+        'name': 'Это страница о сайте',
+        'title': 'Страница о сайте',
     }
+
     return render(request, template_name='shop/about.html', context=context)
 
 
 def contact(request):
     context = {
-        'name': 'Ivan',
-        'lastname': 'Ivanov',
-        'email': 'ivanivanov@yandex.ru',
+        'name': 'Andrey',
+        'lastname': 'Bobrov',
+        'email': 'andrey-network@yandex.ru',
         'title': 'Страница контактов',
     }
     return render(request, template_name='shop/contact.html', context=context)

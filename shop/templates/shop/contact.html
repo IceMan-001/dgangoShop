@@ -2,20 +2,29 @@
 {% load static %}
 
 {% block title %}
-  <title>Title</title>
+<title>{{ title }}</title>
 {% endblock title %}
 
 {% block content %}
 <style>
-<!--  * {-->
-<!--    background: url('/static/image/python_image.png');-->
-<!--    width: 500px;-->
-<!--    height: auto;-->
-<!--  }-->
+    body {
+      background: url('/static/image/python_image.png');
+      background-size: cover;
+    }
+    .contact--div {
+       margin: 20px 0 0 20px;
+          }
+     .content--about {
+       color: #E0FFFF;
+       font-style: italic;
+       font-weight: medium;
+      }
 </style>
 
-
-  <h1>Это страница контактов</h1>
-
-
+<div class="contact--div">
+    <h1 class="content--about">Это страница контактов</h1>
+    <h3 class="content--about">Имя: {{name}}</h3>
+    <h3 class="content--about">Фамилия: {{lastname}}</h3>
+    <h3 class="content--about">Электронная почта: {{email}}</h3>
+</div>
 {% endblock content %}
