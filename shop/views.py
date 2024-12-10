@@ -198,6 +198,20 @@ def product_search(request):
     return render(request, template_name="shop/home.html", context=context)
 
 
+def product_search_base_secondary(request):
+    """Поиск продукта на второй странице"""
+    query = request.GET.get('query')  # получаем запрос из url
+    # query_text = Q(name__startswith=query) & Q(price__lt=200000) & Q(name__icontains=query)
+    query_text = Q(name__icontains=query)
+
+    results = Product.objects.filter(query_text)
+    categories = Category.objects.all()
+
+    context = {'categories': categories, 'products': results}
+
+    return render(request, template_name="shop/products_by_category.html", context=context)
+
+
 def about(request):
     context = {
         'name': 'Это страница о сайте',

@@ -9,13 +9,14 @@ from .views import (ProductListView, CategoryCreateView,
                     CategoryUpdateView, CategoryDeleteView,
                     ProductDeleteView, ProductListByCategory,
                     ProductDetailView, ProductListViewAdmin,)
-from .views import product_search, product_list_view
+from .views import product_search, product_list_view, product_search_base_secondary
 
 # my_site/product/products/
 urlpatterns = [
     path('categories/<slug:slug>/products/test/', product_list_view, name="test"),
 
     path('search/', product_search, name="product_search"),
+    path('search_secondary/', product_search_base_secondary, name="product_search_base_secondary"),
     path('products/', ProductListView.as_view(), name='products'),
     path('products/admin/', ProductListViewAdmin.as_view(), name='products_admin'),
     path('products/add/', ProductCreateView.as_view(), name='products_add'),

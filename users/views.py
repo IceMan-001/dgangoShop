@@ -91,6 +91,7 @@ def change_password(request):
 
     return render(request, 'users/change_password.html', {'form': form})
 
+
 class PasswordChangeDoneView(PasswordContextMixin, TemplateView):
     template_name = "users/change_password_done.html"
     title = "Password change successful"

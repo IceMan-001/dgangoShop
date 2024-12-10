@@ -70,8 +70,6 @@ class Cart:
 
 
 # корзина авторизованного пользователя
-
-
 class ProductCartUser:
     def __init__(self, request):
         # получаем текущего пользователя
