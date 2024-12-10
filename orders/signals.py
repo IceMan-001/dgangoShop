@@ -1,18 +1,18 @@
-from django.contrib.auth import get_user_model
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.core.mail import send_mail
 
 from website_shop import settings
+from .models import Order, OrderItem
 
-User = get_user_model()
 
-
-@receiver(post_save, sender=User)
-def user_postsave(sender, instance, created, **kwargs):
+@receiver(post_save, sender=Order)
+def order_save(sender, instance, created, **kwargs):
     if created:
-        subject = instance.first_name
-        message = f'Привет, {instance.first_name}! Мы рады вас видеть на нашем сайте!'
+        subject = instance.number
+        message = f'Привет, {instance.user}! Ваш заказ номер: {instance.number}  \
+                    находиться в статусе: {instance.status}.'
+
         from_email = settings.EMAIL_HOST_USER
         to_email = instance.email
         send_mail(

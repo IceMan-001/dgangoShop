@@ -14,10 +14,8 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from django.utils.decorators import method_decorator
 
-
 User = get_user_model()
 user = get_user_model()
-
 
 
 class LoginUser(LoginView):
@@ -66,6 +64,7 @@ class ProfileUserView(LoginView):
     form_class = AuthenticationForm
     template_name = 'users/profile_list.html'
     extra_context = {'title': "Информация о пользователе"}
+
 
 @login_required
 def change_password(request):
