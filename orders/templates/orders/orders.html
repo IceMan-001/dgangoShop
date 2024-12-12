@@ -2,55 +2,44 @@
 {% load static %}
 
 {% block title %}
-    <title>Заказы</title>
+<title>Заказы</title>
 {% endblock title %}
 
 {% block content %}
-    {#<div class="orders">#}
-    {#    {% for order in orders %}#}
-    {#        <div class="order-item ">#}
-    {#            <div class="order-number">{{order.number}}</div>#}
-    {#            <div class="order-payment">{{order.payment}}</div>#}
-    {#            <div class="order-delivery">{{order.delivery}}</div>#}
-    {#            <div class="order-data">{{order.created_at}}</div>#}
-    {#        </div>#}
-    {#    {% endfor %}#}
-    {#</div>#}
 
-
-    <table class="table" style="text-align: center;">
-        <thead>
-        <tr>
-            <th>Номер по списку</th>
-            <th>Заказчик</th>
-            <th>Номер заказа</th>
-            <th>Способ оплаты</th>
-            <th>Способ доставки</th>
-            <th>Дата создания</th>
-        </tr>
-        </thead>
-        {% for order in orders %}
-            <tr>
-                <td>
-                    {{ forloop.counter }}
-                </td>
-                <td>
-                    {{ order.user }}
-                </td>
-                <td>
-                    <a href="{% url 'orders:order_detail' order.number %}">{{ order.number }}</a>
-                </td>
-                <td>
-                    {{ order.payment }}
-                </td>
-                <td>
-                    {{ order.delivery }}
-                </td>
-                <td>
-                    {{ order.created_at }}
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
+<table class="table" style="text-align: center;">
+    <thead>
+    <tr>
+        <th>Номер по списку</th>
+        <th>Заказчик</th>
+        <th>Номер заказа</th>
+        <th>Способ оплаты</th>
+        <th>Способ доставки</th>
+        <th>Дата создания</th>
+    </tr>
+    </thead>
+    {% for order in orders %}
+    <tr>
+        <td>
+            {{ forloop.counter }}
+        </td>
+        <td>
+            {{ order.user }}
+        </td>
+        <td>
+            <a href="{% url 'orders:order_detail' order.number %}">{{ order.number }}</a>
+        </td>
+        <td>
+            {{ order.payment }}
+        </td>
+        <td>
+            {{ order.delivery }}
+        </td>
+        <td>
+            {{ order.created_at }}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
 
 {% endblock content %}

@@ -119,6 +119,7 @@ def order_user(request):
 
 class ListOrdersViewTotal(ListView):  # Получение всех заказов на странице администрирования
     model = Order
+    #template_name = 'orders/list_orders_total.html'
     template_name = 'orders/list_orders_total.html'
     context_object_name = 'orders'
 
@@ -131,7 +132,8 @@ def all_orders_list(request):
     orders = Order.object.all()
     context = {'orders': orders}
 
-    return render(request, template_name='shop/list_orders_total.html', context=context)
+    return render(request, template_name='orders/list_orders_total.html', context=context)
+
 
 
 # Домашнее задание

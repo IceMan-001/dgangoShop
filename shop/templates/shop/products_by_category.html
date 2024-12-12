@@ -49,6 +49,20 @@
 	pointer-events: none;
 	opacity: 0.65;
 }
+    .image_small_down {
+        margin: 5px;
+        height: 60px;
+        width: auto;
+    }
+
+    .image_down_zoom {
+        transition: transform .2s; /* Animation */
+
+    }
+    .image_down_zoom:hover {
+        transform: scale(5.5); /* (150% зум - Примечание: если масштаб слишком велик, он будет выходить за пределы видового экрана) */
+        z-index:5;
+}
 
 </style>
 
@@ -94,6 +108,15 @@
                                     alt="Картинка"/>
                         </a>
                         {% endif %}
+                    </div>
+                    <div style="display: flex; flex-direction: row; justify-content: center;">
+                        {% for image in product.images.all %}
+                        <div class="image_down_zoom">
+                            <img class="image_small_down"
+                                 src="{{ image.image.url }}"
+                                 alt="Картинка"/>
+                        </div>
+                        {% endfor %}
                     </div>
                     <h4>Название товара: {{product.name}}</h4>
                     <p>Описание: {{ product.description }}</p>

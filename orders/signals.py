@@ -3,13 +3,13 @@ from django.db.models.signals import post_save
 from django.core.mail import send_mail
 
 from website_shop import settings
-from .models import Order, OrderItem
+from .models import Order
 
 
 @receiver(post_save, sender=Order)
 def order_save(sender, instance, created, **kwargs):
     if created:
-        subject = instance.number
+        subject = 'My_Books_Shop'
         message = f'Привет, {instance.user}! Ваш заказ номер: {instance.number}  \
                     находиться в статусе: {instance.status}.'
 
