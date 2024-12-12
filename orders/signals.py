@@ -3,10 +3,10 @@ from django.db.models.signals import post_save
 from django.core.mail import send_mail
 
 from website_shop import settings
-from .models import Order
+from .views import ProductCartUser
 
 
-@receiver(post_save, sender=Order)
+@receiver(post_save, sender=ProductCartUser)
 def order_save(sender, instance, created, **kwargs):
     if created:
         subject = 'My_Books_Shop'
