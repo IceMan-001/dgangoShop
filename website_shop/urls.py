@@ -33,6 +33,8 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('about/', about, name='about'),
     path('contact/', contact, name='contact'),
+    # path('ssession', views.setsession),
+    # path('gsession', views.getsession),
 ]
 
 # включаем возможность обработки картинок
